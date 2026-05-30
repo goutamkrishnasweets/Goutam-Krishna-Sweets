@@ -190,7 +190,7 @@ nav a:hover{color:var(--rose);}
 .item-name{font-size:0.92rem;font-weight:500;margin-bottom:0.1rem;}
 .item-alt{font-size:0.68rem;color:var(--gray);opacity:0.75;margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em;}
 .item-foot{display:flex;align-items:center;justify-content:space-between;margin-top:0.6rem;}
-.item-price{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);font-weight:600;}
+.item-price{display:inline-flex;align-items:center;gap:0.3rem;background:#e8f8ef;color:#1a7a4a;border:1px solid #a8e6c1;font-size:0.72rem;font-weight:600;padding:0.25rem 0.7rem;border-radius:100px;letter-spacing:0.02em;}
 .add-btn{background:var(--rose);color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:background 0.2s,transform 0.15s;display:flex;align-items:center;justify-content:center;line-height:1;}
 .add-btn:hover{background:#a8435a;transform:scale(1.12);}
 
@@ -570,8 +570,7 @@ footer strong{color:#fff;}
   </div>
   <div class="cart-foot" id="cartFoot" style="display:none">
     <div class="cart-subtotal">
-      <span>Subtotal</span>
-      <span id="cartTotal">₹0</span>
+      <span style="font-size:0.8rem;color:var(--gray);">💬 Prices confirmed on WhatsApp by the owner</span>
     </div>
     <textarea class="cart-note" id="cartNote" placeholder="Special instructions (design, allergies, delivery address…)"></textarea>
     <button class="wa-order-btn" onclick="sendCartToWhatsApp()">
@@ -716,10 +715,7 @@ function renderCart(){
   empty.style.display = 'none';
   foot.style.display  = 'block';
 
-  let subtotal = 0;
   cart.forEach(item => {
-    const unitPrice = parsePrice(item.price);
-    subtotal += unitPrice * item.qty;
     const div = document.createElement('div');
     div.className = 'cart-item';
     div.innerHTML = `
@@ -727,7 +723,7 @@ function renderCart(){
            onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=60&q=60'">
       <div class="ci-info">
         <div class="ci-name">${item.name}</div>
-        <div class="ci-price">${item.price}</div>
+        <div class="ci-price">Price on enquiry</div>
         <div class="ci-qty">
           <button class="qty-btn" onclick="changeQty('${item.name}',-1)">−</button>
           <span class="qty-val">${item.qty}</span>
@@ -737,9 +733,6 @@ function renderCart(){
       <button class="ci-remove" onclick="removeItem('${item.name}')" title="Remove">🗑</button>`;
     body.appendChild(div);
   });
-
-  // FIX #6: Now correctly shows ₹ totals even for "₹999+" items
-  totalEl.textContent = subtotal > 0 ? '₹' + subtotal.toLocaleString('en-IN') : 'To be confirmed';
 }
 
 function sendCartToWhatsApp(){
@@ -833,76 +826,76 @@ const FALLBACK = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w
 // Prices reflect 2025-26 Kerala / Palakkad local bakery market rates (per 1 kg unless stated)
 const cakes = [
   // ── CUSTOM ──────────────────────────────────────────────────────────────
-  {name:"Customized Cake",  cat:"custom",    price:"₹1,199+",  tag:"Bestseller", img:I.customized},  // custom designer: ₹999–₹1,500/kg local
-  {name:"Barbie Cake",      cat:"custom",    price:"₹1,499",   tag:"Kids Fav",   img:I.barbie},      // fondant/figurine premium
-  {name:"Rainbow Cake",     cat:"custom",    price:"₹1,299",   tag:"Colorful",   img:I.rainbow},     // multi-layer custom
-  {name:"Dream Cake",       cat:"custom",    price:"₹1,399",   tag:"Custom",     img:I.dream},       // designer tier
-  {name:"Box Cake",         cat:"custom",    price:"₹999",     tag:"Trending",   img:I.box},         // trending format
+  {name:"Customized Cake",  cat:"custom",    price:"Enquire",  tag:"Bestseller", img:I.customized},
+  {name:"Barbie Cake",      cat:"custom",    price:"Enquire",  tag:"Kids Fav",   img:I.barbie},
+  {name:"Rainbow Cake",     cat:"custom",    price:"Enquire",  tag:"Colorful",   img:I.rainbow},
+  {name:"Dream Cake",       cat:"custom",    price:"Enquire",  tag:"Custom",     img:I.dream},
+  {name:"Box Cake",         cat:"custom",    price:"Enquire",  tag:"Trending",   img:I.box},
   // ── CHOCOLATE ───────────────────────────────────────────────────────────
-  {name:"Black Forest",     cat:"chocolate", price:"₹699",     tag:"Classic",    img:I.blackforest}, // standard: ₹600–₹750/kg
-  {name:"Chocolate Cake",   cat:"chocolate", price:"₹649",     tag:"",           img:I.chocolate},   // base flavour
-  {name:"Choco Truffle",    cat:"chocolate", price:"₹799",     tag:"Rich",       img:I.truffle},     // ganache premium
-  {name:"Choconut Cake",    cat:"chocolate", price:"₹849",     tag:"",           img:I.choconut},    // choc + nut premium
-  {name:"KitKat Cake",      cat:"chocolate", price:"₹899",     tag:"Kids Fav",   img:I.kitkat},      // branded chocolate cost
-  {name:"Ferrero Rocher",   cat:"chocolate", price:"₹1,199",   tag:"Premium",    img:I.ferrero},     // Ferrero: ₹800–₹1,700/kg
-  {name:"Black Magic Cake", cat:"chocolate", price:"₹849",     tag:"Dark",       img:I.blackmagic},  // dark/espresso choc
-  {name:"Vancho Cake",      cat:"chocolate", price:"₹799",     tag:"",           img:I.vancho},      // Kerala classic
+  {name:"Black Forest",     cat:"chocolate", price:"Enquire",  tag:"Classic",    img:I.blackforest},
+  {name:"Chocolate Cake",   cat:"chocolate", price:"Enquire",  tag:"",           img:I.chocolate},
+  {name:"Choco Truffle",    cat:"chocolate", price:"Enquire",  tag:"Rich",       img:I.truffle},
+  {name:"Choconut Cake",    cat:"chocolate", price:"Enquire",  tag:"",           img:I.choconut},
+  {name:"KitKat Cake",      cat:"chocolate", price:"Enquire",  tag:"Kids Fav",   img:I.kitkat},
+  {name:"Ferrero Rocher",   cat:"chocolate", price:"Enquire",  tag:"Premium",    img:I.ferrero},
+  {name:"Black Magic Cake", cat:"chocolate", price:"Enquire",  tag:"Dark",       img:I.blackmagic},
+  {name:"Vancho Cake",      cat:"chocolate", price:"Enquire",  tag:"",           img:I.vancho},
   // ── FRUIT ───────────────────────────────────────────────────────────────
-  {name:"White Forest",     cat:"fruit",     price:"₹699",     tag:"Light",      img:I.whiteforest}, // cream + cherry
-  {name:"Red Velvet",       cat:"fruit",     price:"₹799",     tag:"Popular",    img:I.redvelvet},   // Red Velvet: ₹600–₹1,000/kg
-  {name:"Strawberry Cake",  cat:"fruit",     price:"₹749",     tag:"Fresh",      img:I.strawberry},  // seasonal fresh fruit
-  {name:"Blueberry Cake",   cat:"fruit",     price:"₹799",     tag:"",           img:I.blueberry},   // imported berry premium
-  {name:"Mango Cake",       cat:"fruit",     price:"₹749",     tag:"Seasonal",   img:I.mango},       // seasonal
-  {name:"Orange Cake",      cat:"fruit",     price:"₹649",     tag:"",           img:I.orange},      // standard fruit
-  {name:"Tender Coconut Cake",cat:"fruit",   price:"₹749",     tag:"",           img:I.coconut},     // Kerala specialty
+  {name:"White Forest",     cat:"fruit",     price:"Enquire",  tag:"Light",      img:I.whiteforest},
+  {name:"Red Velvet",       cat:"fruit",     price:"Enquire",  tag:"Popular",    img:I.redvelvet},
+  {name:"Strawberry Cake",  cat:"fruit",     price:"Enquire",  tag:"Fresh",      img:I.strawberry},
+  {name:"Blueberry Cake",   cat:"fruit",     price:"Enquire",  tag:"",           img:I.blueberry},
+  {name:"Mango Cake",       cat:"fruit",     price:"Enquire",  tag:"Seasonal",   img:I.mango},
+  {name:"Orange Cake",      cat:"fruit",     price:"Enquire",  tag:"",           img:I.orange},
+  {name:"Tender Coconut Cake",cat:"fruit",   price:"Enquire",  tag:"",           img:I.coconut},
   // ── SPECIAL ─────────────────────────────────────────────────────────────
-  {name:"Biscoff Cake",     cat:"special",   price:"₹1,099",   tag:"Trending",   img:I.biscoff},     // Lotus Biscoff: ₹1,000–₹1,500/kg
-  {name:"Cheese Cake",      cat:"special",   price:"₹949",     tag:"",           img:I.cheese},      // cream cheese premium
-  {name:"Nutty Bubble",     cat:"special",   price:"₹949",     tag:"Crunchy",    img:I.nutty},       // dry fruit + chocolate
-  {name:"Almond Fudge",     cat:"special",   price:"₹999",     tag:"",           img:I.almond},      // almond cost up in 2025
-  {name:"Pista Fudge",      cat:"special",   price:"₹1,049",   tag:"",           img:I.pista},       // pistachio prices high
-  {name:"Pistachio Cake",   cat:"special",   price:"₹1,099",   tag:"",           img:I.pistachio},   // premium nut cake
-  {name:"Red Bee Cake",     cat:"special",   price:"₹899",     tag:"Unique",     img:I.redbee},      // honey + special
-  {name:"Honey Almond",     cat:"special",   price:"₹999",     tag:"",           img:I.honeyalmond}, // honey + almond combo
-  {name:"Marble Cake",      cat:"special",   price:"₹699",     tag:"",           img:I.marble},      // classic pattern
-  {name:"Ghee Cake",        cat:"special",   price:"₹749",     tag:"Traditional",img:I.ghee},        // pure ghee cost risen
-  {name:"Honey Cake",       cat:"special",   price:"₹749",     tag:"",           img:I.honey},       // honey premium
-  {name:"Plum Cake",        cat:"special",   price:"₹699",     tag:"",           img:I.plum},        // dried fruit
-  {name:"Tea Cake",         cat:"special",   price:"₹549",     tag:"",           img:I.tea},         // simple sponge
-  {name:"Carrot Cake",      cat:"special",   price:"₹699",     tag:"Healthy",    img:I.carrot},      // cream cheese frosting
-  {name:"Butterscotch",     cat:"special",   price:"₹699",     tag:"",           img:I.butterscotch},// popular standard
+  {name:"Biscoff Cake",     cat:"special",   price:"Enquire",  tag:"Trending",   img:I.biscoff},
+  {name:"Cheese Cake",      cat:"special",   price:"Enquire",  tag:"",           img:I.cheese},
+  {name:"Nutty Bubble",     cat:"special",   price:"Enquire",  tag:"Crunchy",    img:I.nutty},
+  {name:"Almond Fudge",     cat:"special",   price:"Enquire",  tag:"",           img:I.almond},
+  {name:"Pista Fudge",      cat:"special",   price:"Enquire",  tag:"",           img:I.pista},
+  {name:"Pistachio Cake",   cat:"special",   price:"Enquire",  tag:"",           img:I.pistachio},
+  {name:"Red Bee Cake",     cat:"special",   price:"Enquire",  tag:"Unique",     img:I.redbee},
+  {name:"Honey Almond",     cat:"special",   price:"Enquire",  tag:"",           img:I.honeyalmond},
+  {name:"Marble Cake",      cat:"special",   price:"Enquire",  tag:"",           img:I.marble},
+  {name:"Ghee Cake",        cat:"special",   price:"Enquire",  tag:"Traditional",img:I.ghee},
+  {name:"Honey Cake",       cat:"special",   price:"Enquire",  tag:"",           img:I.honey},
+  {name:"Plum Cake",        cat:"special",   price:"Enquire",  tag:"",           img:I.plum},
+  {name:"Tea Cake",         cat:"special",   price:"Enquire",  tag:"",           img:I.tea},
+  {name:"Carrot Cake",      cat:"special",   price:"Enquire",  tag:"Healthy",    img:I.carrot},
+  {name:"Butterscotch",     cat:"special",   price:"Enquire",  tag:"",           img:I.butterscotch},
   // ── OCCASION ────────────────────────────────────────────────────────────
-  {name:"Wedding Cake",     cat:"occasion",  price:"₹3,999+",  tag:"Grand",      img:I.wedding},     // 2–3 tier: ₹3,500–₹5,000+
-  {name:"Birthday Cake",    cat:"occasion",  price:"₹649",     tag:"",           img:I.birthday},    // standard 1kg
-  {name:"Baby Shower",      cat:"occasion",  price:"₹1,299",   tag:"Cute",       img:I.babyshower},  // themed designer
-  {name:"Anniversary Cake", cat:"occasion",  price:"₹1,199",   tag:"Romantic",   img:I.anniversary}, // 2-layer romantic
-  {name:"Mini Cakes",       cat:"occasion",  price:"₹349/pc",  tag:"",           img:I.mini},        // individual portions
-  {name:"Cupcakes",         cat:"occasion",  price:"₹179/pc",  tag:"Party",      img:I.cupcakes},    // per piece baked
+  {name:"Wedding Cake",     cat:"occasion",  price:"Enquire",  tag:"Grand",      img:I.wedding},
+  {name:"Birthday Cake",    cat:"occasion",  price:"Enquire",  tag:"",           img:I.birthday},
+  {name:"Baby Shower",      cat:"occasion",  price:"Enquire",  tag:"Cute",       img:I.babyshower},
+  {name:"Anniversary Cake", cat:"occasion",  price:"Enquire",  tag:"Romantic",   img:I.anniversary},
+  {name:"Mini Cakes",       cat:"occasion",  price:"Enquire",  tag:"",           img:I.mini},
+  {name:"Cupcakes",         cat:"occasion",  price:"Enquire",  tag:"Party",      img:I.cupcakes}
 ];
 
 // Prices reflect 2025-26 Kerala / Palakkad local sweet shop market rates
 const sweets = [
   // ── LADDU & BALLS ────────────────────────────────────────────────────────
-  {name:"Laddu",        alt:"Boondi Unda · ലഡ്ഡു",            cat:"laddu", price:"₹35/pc",  tag:"Classic", img:I.laddu},
-  {name:"Dates Laddu",  alt:"Eentha Unda",                     cat:"laddu", price:"₹50/pc",  tag:"Healthy", img:I.datesladdu},
-  {name:"Nuts Roll",    alt:"Dry Fruit Roll",                  cat:"laddu", price:"₹65/pc",  tag:"Premium", img:I.nutsroll},
-  {name:"Kaju Katli",   alt:"Kaju Barfi",                      cat:"laddu", price:"₹75/pc",  tag:"",        img:I.kajukatli},
+  {name:"Laddu",        alt:"Boondi Unda · ലഡ്ഡു",            cat:"laddu", price:"Enquire", tag:"Classic", img:I.laddu},
+  {name:"Dates Laddu",  alt:"Eentha Unda",                     cat:"laddu", price:"Enquire", tag:"Healthy", img:I.datesladdu},
+  {name:"Nuts Roll",    alt:"Dry Fruit Roll",                  cat:"laddu", price:"Enquire", tag:"Premium", img:I.nutsroll},
+  {name:"Kaju Katli",   alt:"Kaju Barfi",                      cat:"laddu", price:"Enquire", tag:"",        img:I.kajukatli},
   // ── PAK & FUDGE ─────────────────────────────────────────────────────────
-  {name:"Mysore Pak",   alt:"Mysore Barfi",                    cat:"pak",   price:"₹45/pc",  tag:"",        img:I.mysorepak},
-  {name:"Ghee Pak",     alt:"Nei Pak",                         cat:"pak",   price:"₹55/pc",  tag:"Rich",    img:I.gheepak},
-  {name:"Carrot Pak",   alt:"Carrot Barfi",                    cat:"pak",   price:"₹45/pc",  tag:"",        img:I.carrotpak},
-  {name:"Milk Ghee Pak",alt:"Pal Pak",                         cat:"pak",   price:"₹60/pc",  tag:"",        img:I.milkgheepak},
-  {name:"Halwa",        alt:"Gothambu Halwa · Rava Halwa",    cat:"pak",   price:"₹45/pc",  tag:"",        img:I.halwa},
+  {name:"Mysore Pak",   alt:"Mysore Barfi",                    cat:"pak",   price:"Enquire", tag:"",        img:I.mysorepak},
+  {name:"Ghee Pak",     alt:"Nei Pak",                         cat:"pak",   price:"Enquire", tag:"Rich",    img:I.gheepak},
+  {name:"Carrot Pak",   alt:"Carrot Barfi",                    cat:"pak",   price:"Enquire", tag:"",        img:I.carrotpak},
+  {name:"Milk Ghee Pak",alt:"Pal Pak",                         cat:"pak",   price:"Enquire", tag:"",        img:I.milkgheepak},
+  {name:"Halwa",        alt:"Gothambu Halwa · Rava Halwa",    cat:"pak",   price:"Enquire", tag:"",        img:I.halwa},
   // ── MILK SWEETS ─────────────────────────────────────────────────────────
-  {name:"Gulab Jamun",  alt:"Jamun",             cat:"milk",  price:"₹28/pc",  tag:"Soft",    img:I.gulabjamun},
-  {name:"Rasgulla",     alt:"Rasgolla",                        cat:"milk",  price:"₹28/pc",  tag:"",        img:I.rasgulla},
-  {name:"Rasmalai",     alt:"Ras Malai",                       cat:"milk",  price:"₹55/pc",  tag:"Premium", img:I.rasmalai},
-  {name:"Milk Khova",   alt:"Pal Gova · Paal Gova",           cat:"milk",  price:"₹60/pc",  tag:"",        img:I.milkkhova},
+  {name:"Gulab Jamun",  alt:"Jamun",             cat:"milk",  price:"Enquire", tag:"Soft",    img:I.gulabjamun},
+  {name:"Rasgulla",     alt:"Rasgolla",                        cat:"milk",  price:"Enquire", tag:"",        img:I.rasgulla},
+  {name:"Rasmalai",     alt:"Ras Malai",                       cat:"milk",  price:"Enquire", tag:"Premium", img:I.rasmalai},
+  {name:"Milk Khova",   alt:"Pal Gova · Paal Gova",           cat:"milk",  price:"Enquire", tag:"",        img:I.milkkhova},
   // ── FRIED & CRISPY ──────────────────────────────────────────────────────
-  {name:"Jalebi",       alt:"Jilebi · Jilabi",                cat:"fried", price:"₹10/pc",  tag:"Crispy",  img:I.jalebi},
-  {name:"Baby Jalebi",  alt:"Cheru Jilebi · Mini Jilebi",     cat:"fried", price:"₹8/pc",   tag:"Mini",    img:I.babyjalebi},
-  {name:"Sweet Boondi", alt:"Madhura Boondi",                  cat:"fried", price:"₹140/kg", tag:"",        img:I.sweetboondi},
-  {name:"Savories",     alt:"Kerala Mixture · Snacks",          cat:"fried", price:"₹220/kg", tag:"",        img:I.savories},
+  {name:"Jalebi",       alt:"Jilebi · Jilabi",                cat:"fried", price:"Enquire", tag:"Crispy",  img:I.jalebi},
+  {name:"Baby Jalebi",  alt:"Cheru Jilebi · Mini Jilebi",     cat:"fried", price:"Enquire", tag:"Mini",    img:I.babyjalebi},
+  {name:"Sweet Boondi", alt:"Madhura Boondi",                  cat:"fried", price:"Enquire", tag:"",        img:I.sweetboondi},
+  {name:"Savories",     alt:"Kerala Mixture · Snacks",          cat:"fried", price:"Enquire", tag:"",        img:I.savories},
 ];
 
 // Item registry for safe data access without inline JS injection
@@ -926,7 +919,7 @@ function card(item, index){
       <div class="item-name">${item.name}</div>
       ${item.alt ? `<div class="item-alt">${item.alt}</div>` : ''}
       <div class="item-foot">
-        <span class="item-price">${item.price}</span>
+        <span class="item-price">📞 Enquire</span>
         <button class="add-btn" data-key="${key}"
           onclick="event.stopPropagation();addToCartByKey(this.dataset.key)"
           title="Add to cart" aria-label="Add ${item.name} to cart">+</button>

@@ -1057,9 +1057,111 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // Set minimum date on delivery date picker to today
 document.getElementById('oDate').min = new Date().toISOString().split('T')[0];
 
+// ════════════════════════════════════════════════
+// GOOGLE SHEETS CMS — Owner edits a Google Sheet;
+// site auto-updates. Falls back to hardcoded data.
+// ════════════════════════════════════════════════
+
+// 🔗 SHEET ID — replace this with the real Sheet ID after owner shares it
+const SHEET_ID   = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const SHEET_GID  = '0';  // 0 = first tab (Sheet1)
+const SHEET_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+
+// Show skeleton loading state while fetching
+function showLoadingSkeleton(gridId){
+  const grid = document.getElementById(gridId);
+  if(!grid) return;
+  grid.innerHTML = Array(6).fill(
+    `<div class="item-card skeleton-card" style="opacity:0.4;pointer-events:none">
+      <div class="item-img" style="background:#e0d6cc"></div>
+      <div class="item-info">
+        <div style="height:14px;background:#e0d6cc;border-radius:4px;margin-bottom:8px"></div>
+        <div style="height:10px;background:#e0d6cc;border-radius:4px;width:70%"></div>
+      </div>
+    </div>`
+  ).join('');
+}
+
+// Parse a single CSV row, handling quoted commas correctly
+function parseCSVRow(row){
+  const result = [];
+  let cur = '', inQ = false;
+  for(let i = 0; i < row.length; i++){
+    const ch = row[i];
+    if(ch === '"'){ inQ = !inQ; }
+    else if(ch === ',' && !inQ){ result.push(cur.trim()); cur = ''; }
+    else { cur += ch; }
+  }
+  result.push(cur.trim());
+  return result;
+}
+
+// Convert a CSV text blob into an array of objects using the header row as keys
+function csvToObjects(csv){
+  const lines  = csv.trim().split('\n');
+  if(lines.length < 2) return [];
+  const headers = parseCSVRow(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_'));
+  return lines.slice(1).map(line => {
+    const vals = parseCSVRow(line);
+    const obj  = {};
+    headers.forEach((h,i) => obj[h] = (vals[i] || '').trim());
+    return obj;
+  }).filter(r => r.name && r.name.toLowerCase() !== 'name');
+}
+
+// Build a product object from a sheet row, resolving the image key via the I{} map
+function sheetRowToItem(row){
+  const imgKey = (row.image_key || '').toLowerCase().replace(/\s+/g,'');
+  return {
+    name  : row.name,
+    alt   : row.alt   || '',
+    cat   : row.category || 'special',
+    tag   : row.tag   || '',
+    price : 'Enquire',
+    img   : I[imgKey] || FALLBACK
+  };
+}
+
+async function loadProductsFromSheet(){
+  // Only attempt if the Sheet ID has been configured
+  if(SHEET_ID === 'YOUR_GOOGLE_SHEET_ID_HERE'){
+    console.info('ℹ️  Google Sheet not configured — using built-in product list.');
+    render(cakes,  'cakesGrid');
+    render(sweets, 'sweetsGrid');
+    return;
+  }
+
+  showLoadingSkeleton('cakesGrid');
+  showLoadingSkeleton('sweetsGrid');
+
+  try {
+    const resp = await fetch(SHEET_URL, {cache:'no-cache'});
+    if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const csv  = await resp.text();
+    const rows = csvToObjects(csv);
+
+    // Split by type column: 'cake' → cakesGrid, anything else → sweetsGrid
+    const sheetCakes  = rows
+      .filter(r => (r.type||'').toLowerCase() === 'cake' && (r.available||'yes').toLowerCase() !== 'no')
+      .map(sheetRowToItem);
+    const sheetSweets = rows
+      .filter(r => (r.type||'').toLowerCase() !== 'cake' && (r.available||'yes').toLowerCase() !== 'no')
+      .map(sheetRowToItem);
+
+    // Use sheet data if it has entries, otherwise fallback to hardcoded
+    render(sheetCakes.length  ? sheetCakes  : cakes,  'cakesGrid');
+    render(sheetSweets.length ? sheetSweets : sweets, 'sweetsGrid');
+
+    console.info(`✅ Loaded ${sheetCakes.length} cakes + ${sheetSweets.length} sweets from Google Sheet.`);
+  } catch(err){
+    console.warn('⚠️  Could not load Google Sheet — using built-in product list.', err);
+    render(cakes,  'cakesGrid');
+    render(sweets, 'sweetsGrid');
+  }
+}
+
 // Init on load
-render(cakes, 'cakesGrid');
-render(sweets, 'sweetsGrid');
+loadProductsFromSheet();
 renderCart();
 updateFab();
 </script>

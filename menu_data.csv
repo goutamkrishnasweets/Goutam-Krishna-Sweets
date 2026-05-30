@@ -1,0 +1,59 @@
+name,alt,type,category,tag,image_key,available
+Customized Cake,,cake,custom,Bestseller,customized,YES
+Barbie Cake,,cake,custom,Kids Fav,barbie,YES
+Rainbow Cake,,cake,custom,Colorful,rainbow,YES
+Dream Cake,,cake,custom,Custom,dream,YES
+Box Cake,,cake,custom,Trending,box,YES
+Black Forest,,cake,chocolate,Classic,blackforest,YES
+Chocolate Cake,,cake,chocolate,,chocolate,YES
+Choco Truffle,,cake,chocolate,Rich,truffle,YES
+Choconut Cake,,cake,chocolate,,choconut,YES
+KitKat Cake,,cake,chocolate,Kids Fav,kitkat,YES
+Ferrero Rocher,,cake,chocolate,Premium,ferrero,YES
+Black Magic Cake,,cake,chocolate,Dark,blackmagic,YES
+Vancho Cake,,cake,chocolate,,vancho,YES
+White Forest,,cake,fruit,Light,whiteforest,YES
+Red Velvet,,cake,fruit,Popular,redvelvet,YES
+Strawberry Cake,,cake,fruit,Fresh,strawberry,YES
+Blueberry Cake,,cake,fruit,,blueberry,YES
+Mango Cake,,cake,fruit,Seasonal,mango,YES
+Orange Cake,,cake,fruit,,orange,YES
+Tender Coconut Cake,,cake,fruit,,coconut,YES
+Biscoff Cake,,cake,special,Trending,biscoff,YES
+Cheese Cake,,cake,special,,cheese,YES
+Nutty Bubble,,cake,special,Crunchy,nutty,YES
+Almond Fudge,,cake,special,,almond,YES
+Pista Fudge,,cake,special,,pista,YES
+Pistachio Cake,,cake,special,,pistachio,YES
+Red Bee Cake,,cake,special,Unique,redbee,YES
+Honey Almond,,cake,special,,honeyalmond,YES
+Marble Cake,,cake,special,,marble,YES
+Ghee Cake,,cake,special,Traditional,ghee,YES
+Honey Cake,,cake,special,,honey,YES
+Plum Cake,,cake,special,,plum,YES
+Tea Cake,,cake,special,,tea,YES
+Carrot Cake,,cake,special,Healthy,carrot,YES
+Butterscotch,,cake,special,,butterscotch,YES
+Wedding Cake,,cake,occasion,Grand,wedding,YES
+Birthday Cake,,cake,occasion,,birthday,YES
+Baby Shower,,cake,occasion,Cute,babyshower,YES
+Anniversary Cake,,cake,occasion,Romantic,anniversary,YES
+Mini Cakes,,cake,occasion,,mini,YES
+Cupcakes,,cake,occasion,Party,cupcakes,YES
+Laddu,Boondi Unda · ലഡ്ഡു,sweet,laddu,Classic,laddu,YES
+Dates Laddu,Eentha Unda,sweet,laddu,Healthy,datesladdu,YES
+Nuts Roll,Dry Fruit Roll,sweet,laddu,Premium,nutsroll,YES
+Kaju Katli,Kaju Barfi,sweet,laddu,,kajukatli,YES
+Mysore Pak,Mysore Barfi,sweet,pak,,mysorepak,YES
+Ghee Pak,Nei Pak,sweet,pak,Rich,gheepak,YES
+Carrot Pak,Carrot Barfi,sweet,pak,,carrotpak,YES
+Milk Ghee Pak,Pal Pak,sweet,pak,,milkgheepak,YES
+Halwa,Gothambu Halwa · Rava Halwa,sweet,pak,,halwa,YES
+Gulab Jamun,Jamun,sweet,milk,Soft,gulabjamun,YES
+Rasgulla,Rasgolla,sweet,milk,,rasgulla,YES
+Rasmalai,Ras Malai,sweet,milk,Premium,rasmalai,YES
+Milk Khova,Pal Gova · Paal Gova,sweet,milk,,milkkhova,YES
+Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,YES
+Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,YES
+Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,YES
+Savories,Kerala Mixture · Snacks,sweet,fried,,savories,YES

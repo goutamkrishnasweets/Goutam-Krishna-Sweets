@@ -1182,16 +1182,35 @@ function csvToObjects(csv){
   }).filter(r => r.name && r.name.toLowerCase() !== 'name');
 }
 
-// Build a product object from a sheet row, resolving the image key via the I{} map
+// Helper to resolve image source: supports direct URLs, Google Drive share links, and local keys
+function resolveImage(val) {
+  if (!val) return FALLBACK;
+  const trimmed = val.trim();
+  
+  // Check if it's a web URL
+  if (trimmed.toLowerCase().startsWith('http://') || trimmed.toLowerCase().startsWith('https://')) {
+    // Check if it's a Google Drive share link (e.g. /file/d/FILE_ID/view or ?id=FILE_ID)
+    const driveMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    return trimmed; // Return direct image URL as-is
+  }
+  
+  // Fallback to local image key mapping
+  const cleanKey = trimmed.toLowerCase().replace(/\s+/g,'');
+  return I[cleanKey] || FALLBACK;
+}
+
+// Build a product object from a sheet row, resolving the image key via the I{} map or direct URL
 function sheetRowToItem(row){
-  const imgKey = (row.image_key || '').toLowerCase().replace(/\s+/g,'');
   return {
     name  : row.name,
     alt   : row.alt   || '',
     cat   : row.category || 'special',
     tag   : row.tag   || '',
     price : row.price || 'Enquire',
-    img   : I[imgKey] || FALLBACK
+    img   : resolveImage(row.image_key)
   };
 }
 

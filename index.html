@@ -953,12 +953,17 @@ function render(list, id){
 
 let currentCakeCat = 'all', currentSweetCat = 'all';
 
+// Live copies — updated once the Google Sheet loads.
+// Search & filter always use these so prices from the sheet are preserved.
+let liveCakes  = cakes.slice();
+let liveSweets = sweets.slice();
+
 function filterCakes(cat, btn){
   document.querySelectorAll('#cakeTabBtns .tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentCakeCat = cat;
   document.getElementById('cakeSearch').value = '';
-  const list = cat === 'all' ? cakes : cakes.filter(c => c.cat === cat);
+  const list = cat === 'all' ? liveCakes : liveCakes.filter(c => c.cat === cat);
   render(list, 'cakesGrid');
   document.getElementById('cakesNoResults').classList.remove('show');
 }
@@ -967,7 +972,7 @@ function filterSweets(cat, btn){
   btn.classList.add('active');
   currentSweetCat = cat;
   document.getElementById('sweetSearch').value = '';
-  const list = cat === 'all' ? sweets : sweets.filter(s => s.cat === cat);
+  const list = cat === 'all' ? liveSweets : liveSweets.filter(s => s.cat === cat);
   render(list, 'sweetsGrid');
   document.getElementById('sweetsNoResults').classList.remove('show');
 }
@@ -976,17 +981,17 @@ function searchItems(type, query){
   if(type === 'cakes'){
     document.querySelectorAll('#cakeTabBtns .tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('#cakeTabBtns .tab-btn').classList.add('active');
-    const list = q ? cakes.filter(c => c.name.toLowerCase().includes(q)) : cakes;
+    const list = q ? liveCakes.filter(c => c.name.toLowerCase().includes(q)) : liveCakes;
     render(list, 'cakesGrid');
     document.getElementById('cakesNoResults').classList.toggle('show', list.length === 0);
   } else {
     document.querySelectorAll('#sweetTabBtns .tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('#sweetTabBtns .tab-btn').classList.add('active');
     // Search also matches Manglish/Malayalam alt names
-    const list = q ? sweets.filter(s =>
+    const list = q ? liveSweets.filter(s =>
       s.name.toLowerCase().includes(q) ||
       (s.alt && s.alt.toLowerCase().includes(q))
-    ) : sweets;
+    ) : liveSweets;
     render(list, 'sweetsGrid');
     document.getElementById('sweetsNoResults').classList.toggle('show', list.length === 0);
   }
@@ -1153,15 +1158,19 @@ async function loadProductsFromSheet(){
       .filter(r => (r.type||'').toLowerCase() !== 'cake' && (r.available||'yes').toLowerCase() !== 'no')
       .map(sheetRowToItem);
 
-    // Use sheet data if it has entries, otherwise fallback to hardcoded
-    render(sheetCakes.length  ? sheetCakes  : cakes,  'cakesGrid');
-    render(sheetSweets.length ? sheetSweets : sweets, 'sweetsGrid');
+    // Update live arrays so search & filter also use sheet prices
+    liveCakes  = sheetCakes.length  ? sheetCakes  : cakes;
+    liveSweets = sheetSweets.length ? sheetSweets : sweets;
+
+    render(liveCakes,  'cakesGrid');
+    render(liveSweets, 'sweetsGrid');
 
     console.info(`✅ Loaded ${sheetCakes.length} cakes + ${sheetSweets.length} sweets from Google Sheet.`);
   } catch(err){
     console.warn('⚠️  Could not load Google Sheet — using built-in product list.', err);
-    render(cakes,  'cakesGrid');
-    render(sweets, 'sweetsGrid');
+    // liveCakes/liveSweets already default to the hardcoded arrays
+    render(liveCakes,  'cakesGrid');
+    render(liveSweets, 'sweetsGrid');
   }
 }
 

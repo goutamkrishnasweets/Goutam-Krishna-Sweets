@@ -1,30 +1,30 @@
-name,alt,type,category,tag,image_key,price,available,category_id,category_button_name,category_type
-Customized Cake,,cake,custom,Bestseller,customized,1000,YES
-Barbie Cake,,cake,custom,Kids Fav,barbie,1000,YES
-Rainbow Cake,,cake,custom,Colorful,rainbow,1000,YES
-Dream Cake,,cake,custom,Custom,dream,1000,YES
-Box Cake,,cake,custom,Trending,box,1000,YES
-Black Forest,,cake,chocolate,Classic,blackforest,800,YES
-Chocolate Cake,,cake,chocolate,,chocolate,800,YES
-Choco Truffle,,cake,chocolate,Rich,truffle,800,YES
+name,alt,type,category,tag,image_key,price,available
+Customized Cake,,cake,custom,Bestseller,customized,788,YES
+Barbie Cake,,cake,custom,Kids Fav,https://drive.google.com/file/d/1aJ33FGmM5dfvDM84OHJSSClqaVs4Kg27/view?usp=sharing,888,YES
+Rainbow Cake,,cake,custom,Colorful,rainbow,999,YES
+Dream Cake,,cake,custom,Bestseller,dream,445,YES
+Box Cake,,cake,custom,Trending,box,666,YES
+Black Forest,,cake,chocolate,Classic,blackforest,77,YES
+Chocolate Cake,,cake,chocolate,,chocolate,655,YES
+Choco Truffle,,cake,chocolate,Rich,truffle,6545,YES
 Choconut Cake,,cake,chocolate,,choconut,800,YES
-KitKat Cake,,cake,chocolate,Kids Fav,kitkat,800,YES
-Ferrero Rocher,,cake,chocolate,Premium,ferrero,800,YES
-Black Magic Cake,,cake,chocolate,Dark,blackmagic,800,YES
-Vancho Cake,,cake,chocolate,,vancho,800,YES
-White Forest,,cake,fruit,Light,whiteforest,700,YES
-Red Velvet,,cake,fruit,Popular,redvelvet,700,YES
-Strawberry Cake,,cake,fruit,Fresh,strawberry,700,YES
-Blueberry Cake,,cake,fruit,,blueberry,700,YES
-Mango Cake,,cake,fruit,Seasonal,mango,700,YES
-Orange Cake,,cake,fruit,,orange,700,YES
-Tender Coconut Cake,,cake,fruit,,coconut,700,YES
-Biscoff Cake,,cake,special,Trending,biscoff,600,YES
-Cheese Cake,,cake,special,,cheese,600,YES
-Nutty Bubble,,cake,special,Crunchy,nutty,600,YES
-Almond Fudge,,cake,special,,almond,600,YES
+KitKat Cake,,cake,chocolate,Kids Fav,kitkat,44,YES
+Ferrero Rocher,,cake,chocolate,Premium,ferrero,55,YES
+Black Magic Cake,,cake,chocolate,Dark,blackmagic,55,YES
+Vancho Cake,,cake,chocolate,,vancho,55,YES
+White Forest,,cake,fruit,Light,whiteforest,66,YES
+Red Velvet,,cake,fruit,Popular,redvelvet,77,YES
+Strawberry Cake,,cake,fruit,Fresh,strawberry,33,YES
+Blueberry Cake,,cake,fruit,,blueberry,66,YES
+Mango Cake,,cake,fruit,Seasonal,mango,22,YES
+Orange Cake,,cake,fruit,,orange,55,YES
+Tender Coconut Cake,,cake,fruit,,coconut,7,YES
+Biscoff Cake,,cake,special,Trending,biscoff,8,YES
+Cheese Cake,,cake,special,,cheese,8,YES
+Nutty Bubble,,cake,special,Crunchy,nutty,9,YES
+Almond Fudge,,cake,special,,almond,67,YES
 Pista Fudge,,cake,special,,pista,600,YES
-Pistachio Cake,,cake,special,,pistachio,600,YES
+Pistachio Cake,,cake,special,,pistachio,67,YES
 Red Bee Cake,,cake,special,Unique,redbee,600,YES
 Honey Almond,,cake,special,,honeyalmond,600,YES
 Marble Cake,,cake,special,,marble,600,YES
@@ -39,7 +39,7 @@ Birthday Cake,,cake,occasion,,birthday,1200,YES
 Baby Shower,,cake,occasion,Cute,babyshower,1200,YES
 Anniversary Cake,,cake,occasion,Romantic,anniversary,1200,YES
 Mini Cakes,,cake,occasion,,mini,1200,YES
-Cupcakes,,cake,occasion,Party,cupcakes,1200,YES
+Cupcakes,,cake,occasion,Party,https://drive.google.com/file/d/1XkqUJy3RS1Rc_ppTNBUZfzuSX5blq6MP/view?usp=sharing,1200,YES
 Laddu,Boondi Unda · ലഡ്ഡു,sweet,laddu,Classic,laddu,200,YES
 Dates Laddu,Eentha Unda,sweet,laddu,Healthy,datesladdu,200,YES
 Nuts Roll,Dry Fruit Roll,sweet,laddu,Premium,nutsroll,200,YES
@@ -57,12 +57,4 @@ Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES
 Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES
 Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES
 Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES
-,,,,,,,,custom,Custom,cake
-,,,,,,,,chocolate,Chocolate,cake
-,,,,,,,,fruit,Fruit,cake
-,,,,,,,,special,Special,cake
-,,,,,,,,occasion,Occasion,cake
-,,,,,,,,laddu,Laddu & Balls,sweet
-,,,,,,,,pak,Pak & Fudge,sweet
-,,,,,,,,milk,Milk Sweets,sweet
-,,,,,,,,fried,Fried & Crispy,sweet
+Vada,Uzhunnu vada,sweet,fried,tea combo,vada,12,YES

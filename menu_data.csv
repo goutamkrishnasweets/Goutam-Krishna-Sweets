@@ -1,60 +1,60 @@
-name,alt,type,category,tag,image_key,price,available
-Customized Cake,,cake,custom,Bestseller,customized,788,YES
-Barbie Cake,,cake,custom,Kids Fav,https://drive.google.com/file/d/1aJ33FGmM5dfvDM84OHJSSClqaVs4Kg27/view?usp=sharing,888,YES
-Rainbow Cake,,cake,custom,Colorful,rainbow,999,YES
-Dream Cake,,cake,custom,Bestseller,dream,445,YES
-Box Cake,,cake,custom,Trending,box,666,YES
-Black Forest,,cake,chocolate,Classic,blackforest,77,YES
-Chocolate Cake,,cake,chocolate,,chocolate,655,YES
-Choco Truffle,,cake,chocolate,Rich,truffle,6545,YES
-Choconut Cake,,cake,chocolate,,choconut,800,YES
-KitKat Cake,,cake,chocolate,Kids Fav,kitkat,44,YES
-Ferrero Rocher,,cake,chocolate,Premium,ferrero,55,YES
-Black Magic Cake,,cake,chocolate,Dark,blackmagic,55,YES
-Vancho Cake,,cake,chocolate,,vancho,55,YES
-White Forest,,cake,fruit,Light,whiteforest,66,YES
-Red Velvet,,cake,fruit,Popular,redvelvet,77,YES
-Strawberry Cake,,cake,fruit,Fresh,strawberry,33,YES
-Blueberry Cake,,cake,fruit,,blueberry,66,YES
-Mango Cake,,cake,fruit,Seasonal,mango,22,YES
-Orange Cake,,cake,fruit,,orange,55,YES
-Tender Coconut Cake,,cake,fruit,,coconut,7,YES
-Biscoff Cake,,cake,special,Trending,biscoff,8,YES
-Cheese Cake,,cake,special,,cheese,8,YES
-Nutty Bubble,,cake,special,Crunchy,nutty,9,YES
-Almond Fudge,,cake,special,,almond,67,YES
-Pista Fudge,,cake,special,,pista,600,YES
-Pistachio Cake,,cake,special,,pistachio,67,YES
-Red Bee Cake,,cake,special,Unique,redbee,600,YES
-Honey Almond,,cake,special,,honeyalmond,600,YES
-Marble Cake,,cake,special,,marble,600,YES
-Ghee Cake,,cake,special,Traditional,ghee,600,YES
-Honey Cake,,cake,special,,honey,600,YES
-Plum Cake,,cake,special,,plum,600,YES
-Tea Cake,,cake,special,,tea,600,YES
-Carrot Cake,,cake,special,Healthy,carrot,600,YES
-Butterscotch,,cake,special,,butterscotch,600,YES
-Wedding Cake,,cake,occasion,Grand,wedding,1200,YES
-Birthday Cake,,cake,occasion,,birthday,1200,YES
-Baby Shower,,cake,occasion,Cute,babyshower,1200,YES
-Anniversary Cake,,cake,occasion,Romantic,anniversary,1200,YES
-Mini Cakes,,cake,occasion,,mini,1200,YES
-Cupcakes,,cake,occasion,Party,https://drive.google.com/file/d/1XkqUJy3RS1Rc_ppTNBUZfzuSX5blq6MP/view?usp=sharing,1200,YES
-Laddu,Boondi Unda · ലഡ്ഡു,sweet,laddu,Classic,laddu,200,YES
-Dates Laddu,Eentha Unda,sweet,laddu,Healthy,datesladdu,200,YES
-Nuts Roll,Dry Fruit Roll,sweet,laddu,Premium,nutsroll,200,YES
-Kaju Katli,Kaju Barfi,sweet,laddu,,kajukatli,200,YES
-Mysore Pak,Mysore Barfi,sweet,pak,,mysorepak,250,YES
-Ghee Pak,Nei Pak,sweet,pak,Rich,gheepak,250,YES
-Carrot Pak,Carrot Barfi,sweet,pak,,carrotpak,250,YES
-Milk Ghee Pak,Pal Pak,sweet,pak,,milkgheepak,250,YES
-Halwa,Gothambu Halwa · Rava Halwa,sweet,pak,,halwa,250,YES
-Gulab Jamun,Jamun,sweet,milk,Soft,gulabjamun,300,YES
-Rasgulla,Rasgolla,sweet,milk,,rasgulla,300,YES
-Rasmalai,Ras Malai,sweet,milk,Premium,rasmalai,300,YES
-Milk Khova,Pal Gova · Paal Gova,sweet,milk,,milkkhova,300,YES
-Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES
-Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES
-Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES
-Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES
-Vada,Uzhunnu vada,sweet,fried,tea combo,vada,12,YES
+name,alt,type,category,tag,image_key,price,available,category_button_name
+Customized Cake,,cake,custom,Bestseller,customized,788,YES,Custom Cakes
+Barbie Cake,,cake,custom,Kids Fav,https://drive.google.com/file/d/1aJ33FGmM5dfvDM84OHJSSClqaVs4Kg27/view?usp=sharing,888,YES,
+Rainbow Cake,,cake,custom,Colorful,rainbow,999,YES,
+Dream Cake,,cake,custom,Bestseller,dream,445,YES,
+Box Cake,,cake,custom,Trending,box,666,YES,
+Black Forest,,cake,chocolate,Classic,blackforest,77,YES,Chocolate Cakes
+Chocolate Cake,,cake,chocolate,,chocolate,655,YES,
+Choco Truffle,,cake,chocolate,Rich,truffle,6545,YES,
+Choconut Cake,,cake,chocolate,,choconut,800,YES,
+KitKat Cake,,cake,chocolate,Kids Fav,kitkat,44,YES,
+Ferrero Rocher,,cake,chocolate,Premium,ferrero,55,YES,
+Black Magic Cake,,cake,chocolate,Dark,blackmagic,55,YES,
+Vancho Cake,,cake,chocolate,,vancho,55,YES,
+White Forest,,cake,fruit,Light,whiteforest,66,YES,Fruit Cakes
+Red Velvet,,cake,fruit,Popular,redvelvet,77,YES,
+Strawberry Cake,,cake,fruit,Fresh,strawberry,33,YES,
+Blueberry Cake,,cake,fruit,,blueberry,66,YES,
+Mango Cake,,cake,fruit,Seasonal,mango,22,YES,
+Orange Cake,,cake,fruit,,orange,55,YES,
+Tender Coconut Cake,,cake,fruit,,coconut,7,YES,
+Biscoff Cake,,cake,special,Trending,biscoff,8,YES,Special Cakes
+Cheese Cake,,cake,special,,cheese,8,YES,
+Nutty Bubble,,cake,special,Crunchy,nutty,9,YES,
+Almond Fudge,,cake,special,,almond,67,YES,
+Pista Fudge,,cake,special,,pista,600,YES,
+Pistachio Cake,,cake,special,,pistachio,67,YES,
+Red Bee Cake,,cake,special,Unique,redbee,600,YES,
+Honey Almond,,cake,special,,honeyalmond,600,YES,
+Marble Cake,,cake,special,,marble,600,YES,
+Ghee Cake,,cake,special,Traditional,ghee,600,YES,
+Honey Cake,,cake,special,,honey,600,YES,
+Plum Cake,,cake,special,,plum,600,YES,
+Tea Cake,,cake,special,,tea,600,YES,
+Carrot Cake,,cake,special,Healthy,carrot,600,YES,
+Butterscotch,,cake,special,,butterscotch,600,YES,
+Wedding Cake,,cake,occasion,Grand,wedding,1200,YES,Occasion Cakes
+Birthday Cake,,cake,occasion,,birthday,1200,YES,
+Baby Shower,,cake,occasion,Cute,babyshower,1200,YES,
+Anniversary Cake,,cake,occasion,Romantic,anniversary,1200,YES,
+Mini Cakes,,cake,occasion,,mini,1200,YES,
+Cupcakes,,cake,occasion,Party,https://drive.google.com/file/d/1XkqUJy3RS1Rc_ppTNBUZfzuSX5blq6MP/view?usp=sharing,1200,YES,
+Laddu,Boondi Unda · ലഡ്ഡു,sweet,laddu,Classic,laddu,200,YES,Laddu & Balls
+Dates Laddu,Eentha Unda,sweet,laddu,Healthy,datesladdu,200,YES,
+Nuts Roll,Dry Fruit Roll,sweet,laddu,Premium,nutsroll,200,YES,
+Kaju Katli,Kaju Barfi,sweet,laddu,,kajukatli,200,YES,
+Mysore Pak,Mysore Barfi,sweet,pak,,mysorepak,250,YES,Pak & Fudge
+Ghee Pak,Nei Pak,sweet,pak,Rich,gheepak,250,YES,
+Carrot Pak,Carrot Barfi,sweet,pak,,carrotpak,250,YES,
+Milk Ghee Pak,Pal Pak,sweet,pak,,milkgheepak,250,YES,
+Halwa,Gothambu Halwa · Rava Halwa,sweet,pak,,halwa,250,YES,
+Gulab Jamun,Jamun,sweet,milk,Soft,gulabjamun,300,YES,Milk Sweets
+Rasgulla,Rasgolla,sweet,milk,,rasgulla,300,YES,
+Rasmalai,Ras Malai,sweet,milk,Premium,rasmalai,300,YES,
+Milk Khova,Pal Gova · Paal Gova,sweet,milk,,milkkhova,300,YES,
+Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES,Fried & Crispy
+Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES,
+Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES,
+Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES,
+vada,Uzhunnu vada,sweet,fried,tea combo,https://drive.google.com/file/d/1WpntZraxw1VTLdAeoUXLdPPeiZXDPbMx/view?usp=sharing,12,YES,

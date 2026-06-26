@@ -1,0 +1,18 @@
+{
+  "initialized": true,
+  "topology": "hierarchical-mesh",
+  "workers": [],
+  "consensus": {
+    "pending": [],
+    "history": []
+  },
+  "sharedMemory": {},
+  "createdAt": "2026-06-08T21:30:06.667Z",
+  "updatedAt": "2026-06-08T21:30:06.749Z",
+  "consensusStrategy": "byzantine",
+  "queen": {
+    "agentId": "queen-1780954206667",
+    "electedAt": "2026-06-08T21:30:06.667Z",
+    "term": 1
+  }
+}

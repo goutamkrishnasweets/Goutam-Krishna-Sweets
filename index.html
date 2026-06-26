@@ -43,11 +43,6 @@
     "longitude": 76.5803527
   },
   "openingHours": "Mo-Su 06:00-22:00",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.3",
-    "reviewCount": "140"
-  },
   "servesCuisine": ["Bakery", "Indian Sweets", "Kerala Sweets"],
   "priceRange": "₹-₹₹",
   "sameAs": ["https://wa.me/919633541399"]
@@ -65,7 +60,7 @@
       "name": "Mundur-il Pal Gova (Milk Khova / Milk Peda) evide kittu?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Pal Gova (also called Milk Khova or Milk Peda) Goutam Krishna Sweets, Mundur, Palakkad-il kittu. Vail: Rs.60 per piece. Phone: +91 96335 41399. Open 6AM-10PM daily."
+        "text": "Pal Gova (also called Milk Khova or Milk Peda) Goutam Krishna Sweets, Mundur, Palakkad-il kittu. Phone: +91 96335 41399. Open 6AM-10PM daily."
       }
     },
     {
@@ -73,7 +68,7 @@
       "name": "Mundur-il fresh Jilebi (Jalebi) evide kittu? Jilebi price Palakkad?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Goutam Krishna Sweets, Mundur-il fresh Jilebi Rs.10/pc-nu kittu. Baby Jilebi (Cheru Jilebi) Rs.8/pc. Open 6AM-10PM."
+        "text": "Goutam Krishna Sweets, Mundur-il fresh Jilebi kittu. Baby Jilebi (Cheru Jilebi) um available. Current pricing-nu call cheyyuka: +91 96335 41399. Open 6AM-10PM."
       }
     },
     {
@@ -81,7 +76,7 @@
       "name": "Mundur bakery sweets price list – Boondi Unda, Munthiri Barfi, Pal Mithai, Jamun, Pal Gola?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Goutam Krishna Sweets Mundur price list: Boondi Unda (Laddu) Rs.35/pc, Munthiri Barfi (Kaju Katli) Rs.75/pc, Jamun (Gulab Jamun) Rs.28/pc, Pal Mithai (Rasmalai) Rs.55/pc, Pal Gova (Milk Khova) Rs.60/pc, Madhura Boondi (Sweet Boondi) Rs.140/kg, Nei Pak (Ghee Pak) Rs.55/pc."
+        "text": "Goutam Krishna Sweets Mundur-il Boondi Unda (Laddu), Munthiri Barfi (Kaju Katli), Jamun (Gulab Jamun), Pal Mithai (Rasmalai), Pal Gova (Milk Khova), Madhura Boondi (Sweet Boondi), Nei Pak (Ghee Pak) ellamum kittu. Current prices-nu call: +91 96335 41399."
       }
     },
     {
@@ -97,7 +92,7 @@
       "name": "Mundur-il birthday cake, custom cake order cheyyam? Cake shop Palakkad Road?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Athe! Goutam Krishna Sweets, Mundur-il birthday cake, wedding cake (vivaha cake), anniversary cake, baby shower cake, custom designer cake, Black Forest, Red Velvet ellamum order cheyyam. WhatsApp: +91 96335 41399. Noon-nu munpu order cheyyal same-day delivery kittu."
+        "text": "Athe! Goutam Krishna Sweets, Mundur-il birthday cake, wedding cake (vivaha cake), anniversary cake, baby shower cake, custom designer cake, Black Forest, Red Velvet ellamum order cheyyam. WhatsApp: +91 96335 41399. Advance booking recommended for custom cakes."
       }
     }
   ]
@@ -391,7 +386,7 @@ footer strong{color:#fff;}
   <div class="hero-img">
     <!-- FIX #8: Better, more relevant hero image -->
     <div class="hero-photo">
-      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" alt="Beautiful Custom Cake – Goutam Krishna Sweets">
+      <img src="images/customized_cake.jpg" alt="Beautiful Custom Cake – Goutam Krishna Sweets">
     </div>
   </div>
 </section>
@@ -542,6 +537,7 @@ footer strong{color:#fff;}
           <label>Delivery Date *</label>
           <input type="date" id="oDate">
           <div class="field-error" id="oDateErr">Please select a delivery date.</div>
+          <span style="font-size:0.7rem;color:var(--gray);margin-top:0.25rem;display:block;">Orders placed after 2 PM are scheduled for the next day.</span>
         </div>
       </div>
       <div class="fg"><label>Message on Cake</label><input type="text" id="oMsg" placeholder="e.g. Happy Birthday Priya! 🎉"></div>
@@ -885,7 +881,7 @@ const I = {
   sweetboondi: 'images/sweet_boondi.png',
   savories:    'images/savories.jpg',
 };
-const FALLBACK = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=60';
+const FALLBACK = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23F0E8E0' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%237A6A62'%3E🎂 Image coming soon%3C/text%3E%3C/svg%3E`;
 
 // ════════════════════════════════════════════════
 // NO HARDCODED PRODUCT DATA.
@@ -995,9 +991,10 @@ function searchItems(type, query){
 function selectItem(key){
   const item = itemRegistry[key];
   if(!item) return;
-  // Match select option — find closest match
   const sel = document.getElementById('oCake');
   let matched = false;
+  
+  // 1. Try exact match
   for(let opt of sel.options){
     if(opt.text.trim().toLowerCase() === item.name.trim().toLowerCase()){
       sel.value = opt.value || opt.text;
@@ -1005,7 +1002,24 @@ function selectItem(key){
       break;
     }
   }
-  showToast(`✅ ${item.name} selected — complete your order below`);
+  
+  // 2. Try partial match if exact match failed
+  if(!matched){
+    for(let opt of sel.options){
+      if(opt.text.trim().toLowerCase().includes(item.name.trim().toLowerCase()) ||
+         item.name.trim().toLowerCase().includes(opt.text.trim().toLowerCase())){
+        sel.value = opt.value || opt.text;
+        matched = true;
+        break;
+      }
+    }
+  }
+
+  if(matched){
+    showToast(`✅ ${item.name} selected — complete your order below`);
+  } else {
+    showToast(`📋 Choose your item from the dropdown list below`);
+  }
   document.getElementById('order').scrollIntoView({behavior:'smooth'});
 }
 
@@ -1039,8 +1053,8 @@ function submitOrder(){
 
   let valid = true;
   if(!n){ markError('oName','Please enter your name.'); valid = false; }
-  const digits = p.replace(/[\s\-+]/g,'');
-  if(!p || !/^[6-9]\d{9}$/.test(digits.slice(-10)) || digits.length < 10)
+  const cleaned = p.replace(/[\s\-+]/g,'').replace(/^91/, '').replace(/^0/, '');
+  if(!p || !/^[6-9]\d{9}$/.test(cleaned))
     { markError('oPhone','Enter a valid 10-digit mobile number.'); valid = false; }
   if(!c){ markError('oCake','Please select an item.'); valid = false; }
   if(!d){ markError('oDate','Please select a delivery date.'); valid = false; }
@@ -1069,19 +1083,127 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Set minimum date on delivery date picker to today
-document.getElementById('oDate').min = new Date().toISOString().split('T')[0];
+// Set minimum date on delivery date picker (Orders after 2 PM must be tomorrow or later)
+const today = new Date();
+const hour = today.getHours();
+const minDate = new Date(today);
+if (hour >= 14) {
+  minDate.setDate(minDate.getDate() + 1);
+}
+document.getElementById('oDate').min = minDate.toISOString().split('T')[0];
 
 // ════════════════════════════════════════════════
 // GOOGLE SHEETS CMS — Single source of truth.
 // Owner edits the Google Sheet; site updates live.
-// No hardcoded fallback — sheet is required.
+// Fallback local CSV data embedded to support local file:// mode & offline.
 // ════════════════════════════════════════════════
 
-// Published CSV endpoint (no auth required — sheet must be published)
-const SHEET_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78a8DsaRDqw9ZSNixF1J_aE31tBm0aq8-QvoQgtIgpXbe6KjJi9V14pFH9pL0pGHK2JnzXgMnqjGc/pub?output=csv'
-  : '/api/menu';
+// Published Google Sheets CSV endpoint & fallback endpoints (Proxied securely through Netlify Serverless Function)
+const NETLIFY_PROXY_URL = '/api/menu';
+const LOCAL_FALLBACK_URL = 'menu_data.csv';
+
+// Pre-fetched local fallback CSV data to bypass local browser CORS/file:// protocol restrictions
+const LOCAL_FALLBACK_CSV = `name,alt,type,category,tag,image_key,price,available
+Customized Cake,,cake,custom,Bestseller,customized,1000,YES
+Barbie Cake,,cake,custom,Kids Fav,barbie,300,YES
+Rainbow Cake,,cake,custom,Colorful,rainbow,1000,YES
+Dream Cake,,cake,custom,Custom,dream,1000,YES
+Box Cake,,cake,custom,Trending,box,1000,YES
+Black Forest,,cake,chocolate,Classic,blackforest,400,YES
+Chocolate Cake,,cake,chocolate,,chocolate,800,YES
+Choco Truffle,,cake,chocolate,Rich,truffle,800,YES
+Choconut Cake,,cake,chocolate,,choconut,800,YES
+KitKat Cake,,cake,chocolate,Kids Fav,kitkat,800,YES
+Ferrero Rocher,,cake,chocolate,Premium,ferrero,800,YES
+Black Magic Cake,,cake,chocolate,Dark,blackmagic,800,YES
+Vancho Cake,,cake,chocolate,,vancho,800,YES
+White Forest,,cake,fruit,Light,whiteforest,700,YES
+Red Velvet,,cake,fruit,Popular,redvelvet,700,YES
+Strawberry Cake,,cake,fruit,Fresh,strawberry,700,YES
+Blueberry Cake,,cake,fruit,,blueberry,700,YES
+Mango Cake,,cake,fruit,Seasonal,mango,700,YES
+Orange Cake,,cake,fruit,,orange,700,YES
+Tender Coconut Cake,,cake,fruit,,coconut,700,YES
+Biscoff Cake,,cake,special,Trending,biscoff,600,YES
+Cheese Cake,,cake,special,,cheese,600,YES
+Nutty Bubble,,cake,special,Crunchy,nutty,600,YES
+Almond Fudge,,cake,special,,almond,600,YES
+Pista Fudge,,cake,special,,pista,600,YES
+Pistachio Cake,,cake,special,,pistachio,600,YES
+Red Bee Cake,,cake,special,Unique,redbee,600,YES
+Honey Almond,,cake,special,,honeyalmond,600,YES
+Marble Cake,,cake,special,,marble,600,YES
+Ghee Cake,,cake,special,Traditional,ghee,600,YES
+Honey Cake,,cake,special,,honey,600,YES
+Plum Cake,,cake,special,,plum,600,YES
+Tea Cake,,cake,special,,tea,600,YES
+Carrot Cake,,cake,special,Healthy,carrot,600,YES
+Butterscotch,,cake,special,,butterscotch,600,YES
+Wedding Cake,,cake,occasion,Grand,wedding,1200,YES
+Birthday Cake,,cake,occasion,,birthday,1200,YES
+Baby Shower,,cake,occasion,Cute,babyshower,1200,YES
+Anniversary Cake,,cake,occasion,Romantic,anniversary,1200,YES
+Mini Cakes,,cake,occasion,,mini,1200,YES
+Cupcakes,,cake,occasion,Party,cupcakes,1200,YES
+Laddu,Boondi Unda · ലഡ്ഡു,sweet,laddu,Classic,laddu,200,YES
+Dates Laddu,Eentha Unda,sweet,laddu,Healthy,datesladdu,200,YES
+Nuts Roll,Dry Fruit Roll,sweet,laddu,Premium,nutsroll,200,YES
+Kaju Katli,Kaju Barfi,sweet,laddu,,kajukatli,200,YES
+Mysore Pak,Mysore Barfi,sweet,pak,,mysorepak,250,YES
+Ghee Pak,Nei Pak,sweet,pak,Rich,gheepak,250,YES
+Carrot Pak,Carrot Barfi,sweet,pak,,carrotpak,250,YES
+Milk Ghee Pak,Pal Pak,sweet,pak,,milkgheepak,250,YES
+Halwa,Gothambu Halwa · Rava Halwa,sweet,pak,,halwa,250,YES
+Gulab Jamun,Jamun,sweet,milk,Soft,gulabjamun,300,YES
+Rasgulla,Rasgolla,sweet,milk,,rasgulla,300,YES
+Rasmalai,Ras Malai,sweet,milk,Premium,rasmalai,300,YES
+Milk Khova,Pal Gova · Paal Gova,sweet,milk,,milkkhova,300,YES
+Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES
+Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES
+Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES
+Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES`;
+
+async function fetchWithFallback() {
+  const isLocalFile = window.location.protocol === 'file:';
+
+  // 1. Always attempt to fetch from Netlify Serverless Function first (only if not running on file:// protocol)
+  if (!isLocalFile) {
+    try {
+      console.log(`Attempting to fetch menu from Netlify Serverless Function...`);
+      const resp = await fetch(NETLIFY_PROXY_URL + '?t=' + Date.now(), { cache: 'no-cache' });
+      if (resp.ok) {
+        const text = await resp.text();
+        if (text && text.toLowerCase().includes('name') && text.includes(',')) {
+          console.info(`✅ Successfully loaded menu from Netlify Serverless Function.`);
+          return text;
+        }
+      }
+    } catch (err) {
+      console.warn(`Failed to fetch from Netlify Serverless Function:`, err);
+    }
+  }
+
+  // 2. Fallback to local CSV file (only if not running on file:// protocol)
+  if (!isLocalFile) {
+    try {
+      console.log(`Attempting to fetch menu from local CSV file...`);
+      const resp = await fetch(LOCAL_FALLBACK_URL + '?t=' + Date.now(), { cache: 'no-cache' });
+      if (resp.ok) {
+        const text = await resp.text();
+        if (text && text.toLowerCase().includes('name') && text.includes(',')) {
+          console.info(`✅ Successfully loaded menu from local CSV file.`);
+          return text;
+        }
+      }
+    } catch (err) {
+      console.warn(`Failed to fetch from local CSV file:`, err);
+    }
+  }
+
+  // 3. Ultimate fallback: Use embedded CSV data to bypass file:// fetch restrictions
+  console.info(`⚠️ Using embedded local CSV fallback data (bypassing browser file:// fetch restrictions).`);
+  return LOCAL_FALLBACK_CSV;
+}
 
 // Show skeleton loading state while fetching
 function showLoadingSkeleton(gridId){
@@ -1172,10 +1294,7 @@ async function loadProductsFromSheet(){
   showLoadingSkeleton('sweetsGrid');
 
   try {
-    const separator = SHEET_URL.includes('?') ? '&' : '?';
-    const resp = await fetch(SHEET_URL + separator + 't=' + Date.now(), {cache:'no-cache'});
-    if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const csv  = await resp.text();
+    const csv = await fetchWithFallback();
     const rows = csvToObjects(csv);
 
     if(rows.length === 0) throw new Error('Sheet returned 0 rows');

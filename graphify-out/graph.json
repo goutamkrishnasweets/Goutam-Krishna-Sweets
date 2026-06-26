@@ -1,0 +1,18 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "menu.js",
+      "file_type": "code",
+      "source_file": "D:\\web sites\\krishna_project\\netlify\\functions\\menu.js",
+      "source_location": "L1",
+      "id": "d_web_sites_krishna_project_netlify_functions_menu_js",
+      "community": 0,
+      "norm_label": "menu.js"
+    }
+  ],
+  "links": [],
+  "hyperedges": []
+}

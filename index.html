@@ -1103,7 +1103,7 @@ const NETLIFY_PROXY_URL = '/api/menu';
 const LOCAL_FALLBACK_URL = 'menu_data.csv';
 
 // Pre-fetched local fallback CSV data to bypass local browser CORS/file:// protocol restrictions
-const LOCAL_FALLBACK_CSV = `name,alt,type,category,tag,image_key,price,available
+const LOCAL_FALLBACK_CSV = `name,alt,type,category,tag,image_key,price,available,category_id,category_button_name,category_type
 Customized Cake,,cake,custom,Bestseller,customized,1000,YES
 Barbie Cake,,cake,custom,Kids Fav,barbie,300,YES
 Rainbow Cake,,cake,custom,Colorful,rainbow,1000,YES
@@ -1161,7 +1161,16 @@ Milk Khova,Pal Gova · Paal Gova,sweet,milk,,milkkhova,300,YES
 Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES
 Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES
 Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES
-Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES`;
+Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES
+,,,,,,,,custom,Custom,cake
+,,,,,,,,chocolate,Chocolate,cake
+,,,,,,,,fruit,Fruit,cake
+,,,,,,,,special,Special,cake
+,,,,,,,,occasion,Occasion,cake
+,,,,,,,,laddu,Laddu & Balls,sweet
+,,,,,,,,pak,Pak & Fudge,sweet
+,,,,,,,,milk,Milk Sweets,sweet
+,,,,,,,,fried,Fried & Crispy,sweet`;
 
 async function fetchWithFallback() {
   const isLocalFile = window.location.protocol === 'file:';
@@ -1259,7 +1268,7 @@ function csvToObjects(csv){
     const obj  = {};
     headers.forEach((h,i) => obj[h] = (vals[i] || '').trim());
     return obj;
-  }).filter(r => r.name && r.name.toLowerCase() !== 'name');
+  }).filter(r => (r.name && r.name.toLowerCase() !== 'name') || r.category_id);
 }
 
 // Helper to resolve image source: local key, direct URL, or Google Drive link
@@ -1299,6 +1308,18 @@ async function loadProductsFromSheet(){
 
     if(rows.length === 0) throw new Error('Sheet returned 0 rows');
 
+    // Parse and render category buttons dynamically from Sheet J-L columns
+    const categories = rows
+      .filter(r => r.category_id && r.category_button_name)
+      .map(r => ({
+        id: r.category_id.trim().toLowerCase(),
+        name: r.category_button_name.trim(),
+        type: (r.category_type || 'cake').trim().toLowerCase()
+      }));
+    if (categories.length > 0) {
+      renderCategoryTabs(categories);
+    }
+
     // Split by type column: 'cake' → cakesGrid, 'sweet' → sweetsGrid
     liveCakes  = rows
       .filter(r => (r.type||'').toLowerCase() === 'cake' && (r.available||'yes').toLowerCase() !== 'no')
@@ -1316,6 +1337,24 @@ async function loadProductsFromSheet(){
     console.error('❌ Google Sheet load failed:', err);
     showSheetError('cakesGrid');
     showSheetError('sweetsGrid');
+  }
+}
+
+function renderCategoryTabs(categories) {
+  // For Cakes
+  const cakeCats = categories.filter(c => c.type === 'cake');
+  const cakeTabBtns = document.getElementById('cakeTabBtns');
+  if (cakeTabBtns && cakeCats.length > 0) {
+    cakeTabBtns.innerHTML = `<button class="tab-btn active" onclick="filterCakes('all',this)">All Cakes</button>` +
+      cakeCats.map(c => `<button class="tab-btn" onclick="filterCakes('${c.id}',this)">${c.name}</button>`).join('');
+  }
+
+  // For Sweets
+  const sweetCats = categories.filter(c => c.type === 'sweet');
+  const sweetTabBtns = document.getElementById('sweetTabBtns');
+  if (sweetTabBtns && sweetCats.length > 0) {
+    sweetTabBtns.innerHTML = `<button class="tab-btn active" onclick="filterSweets('all',this)">All Sweets</button>` +
+      sweetCats.map(c => `<button class="tab-btn" onclick="filterSweets('${c.id}',this)">${c.name}</button>`).join('');
   }
 }
 

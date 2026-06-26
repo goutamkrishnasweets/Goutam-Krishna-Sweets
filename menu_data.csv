@@ -1,4 +1,4 @@
-name,alt,type,category,tag,image_key,price,available
+name,alt,type,category,tag,image_key,price,available,category_id,category_button_name,category_type
 Customized Cake,,cake,custom,Bestseller,customized,1000,YES
 Barbie Cake,,cake,custom,Kids Fav,barbie,1000,YES
 Rainbow Cake,,cake,custom,Colorful,rainbow,1000,YES
@@ -57,3 +57,12 @@ Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES
 Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES
 Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES
 Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES
+,,,,,,,,custom,Custom,cake
+,,,,,,,,chocolate,Chocolate,cake
+,,,,,,,,fruit,Fruit,cake
+,,,,,,,,special,Special,cake
+,,,,,,,,occasion,Occasion,cake
+,,,,,,,,laddu,Laddu & Balls,sweet
+,,,,,,,,pak,Pak & Fudge,sweet
+,,,,,,,,milk,Milk Sweets,sweet
+,,,,,,,,fried,Fried & Crispy,sweet

@@ -1317,7 +1317,8 @@ async function loadProductsFromSheet(){
     if(rows.length === 0) throw new Error('Sheet returned 0 rows');
 
     // Auto-build category buttons from existing `category` + `type` columns.
-    // No extra sheet columns needed — uses the CAT_LABELS map in code.
+    // If the sheet has a `category_button_name` column, that label is used.
+    // Otherwise falls back to the CAT_LABELS map defined in code.
     const seenCats = new Set();
     const categories = [];
     rows
@@ -1328,11 +1329,10 @@ async function loadProductsFromSheet(){
         const key = catType + ':' + catId;
         if (!seenCats.has(key)) {
           seenCats.add(key);
-          categories.push({
-            id:   catId,
-            name: CAT_LABELS[catId] || catId.charAt(0).toUpperCase() + catId.slice(1),
-            type: catType
-          });
+          // Sheet column takes priority; built-in label is the fallback
+          const sheetLabel = r.category_button_name && r.category_button_name.trim();
+          const btnName = sheetLabel || CAT_LABELS[catId] || catId.charAt(0).toUpperCase() + catId.slice(1);
+          categories.push({ id: catId, name: btnName, type: catType });
         }
       });
     if (categories.length > 0) {

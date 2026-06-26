@@ -65,7 +65,7 @@ STATUS: ALL 13 IMAGES SUCCESSFULLY REGENERATED/REPLACED & OPTIMIZED
 
 11. choco_truffle.jpg
     - Item Name: Choco Truffle Cake
-    - Status: COMPLETED (Downloaded, resized, and compressed)
+    - Status: COMPLETED (AI Generated ultra-realistic image)
     - Prompt: Professional food product photo of Choco Truffle Cake for a Kerala bakery website. Top-down view on a clean cream/white ceramic plate or wooden board. Bright natural soft lighting. No text, no watermarks, no people. Editorial food photography style. Warm tones. 600x450px.
 
 12. nutty_bubble.jpg

@@ -371,8 +371,8 @@ footer strong{color:#fff;}
 <section class="hero">
   <div class="hero-text">
     <div class="badge" id="hero-badge-badge">🚚 Delivery Available (Charges Apply) · Mundur, Kerala</div>
-    <h1>Cakes, Sweets<br><em>&amp; More</em><br>Delivered Fresh</h1>
-    <p>Handcrafted cakes, traditional sweets, crispy snacks, fresh juices &amp; coffee — made fresh daily at Mundur, Kerala. Order online or walk in!</p>
+    <h1 id="hero-headline">Cakes, Sweets<br><em>&amp; More</em><br>Delivered Fresh</h1>
+    <p id="hero-tagline">Handcrafted cakes, traditional sweets, crispy snacks, fresh juices &amp; coffee — made fresh daily at Mundur, Kerala. Order online or walk in!</p>
     <div class="hero-btns">
       <a href="#cakes" class="btn-p">🛒 Browse Menu</a>
       <a href="#order" class="btn-g">🎂 Pre-book a Cake →</a>
@@ -1442,7 +1442,9 @@ async function loadSiteSettings() {
     opening_hours: 'Open Daily: 6 AM – 10 PM',
     amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
     amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
-    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES'
+    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
+    hero_headline: 'Cakes, Sweets & More Delivered Fresh',
+    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!'
   };
 
   // 1. Try to load from localStorage first for instant render (no flash/jump)
@@ -1484,7 +1486,9 @@ async function loadSiteSettings() {
           settings.amenity_restroom !== cached.amenity_restroom ||
           settings.amenity_payments !== cached.amenity_payments ||
           settings.amenity_lgbtq !== cached.amenity_lgbtq ||
-          settings.amenity_quick_visit !== cached.amenity_quick_visit;
+          settings.amenity_quick_visit !== cached.amenity_quick_visit ||
+          settings.hero_headline !== cached.hero_headline ||
+          settings.hero_tagline !== cached.hero_tagline;
 
         if (hasChanged) {
           applySettings(settings);
@@ -1509,7 +1513,9 @@ function applySettings(settings) {
     opening_hours: 'Open Daily: 6 AM – 10 PM',
     amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
     amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
-    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES'
+    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
+    hero_headline: 'Cakes, Sweets & More Delivered Fresh',
+    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!'
   };
   
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
@@ -1626,7 +1632,20 @@ function applySettings(settings) {
     const el = document.getElementById(id);
     if (el) el.style.display = (val || 'YES').toString().trim().toUpperCase() === 'NO' ? 'none' : '';
   });
+
+  // ── Update hero headline & tagline ──────────────────
+  const headlineEl = document.getElementById('hero-headline');
+  const taglineEl  = document.getElementById('hero-tagline');
+  if (headlineEl && settings.hero_headline) {
+    // Preserve italic styling for '& More' part if present in the default
+    const raw = settings.hero_headline || DEFAULTS.hero_headline;
+    headlineEl.innerHTML = raw.replace(/&amp;/g, '&');
+  }
+  if (taglineEl && settings.hero_tagline) {
+    taglineEl.textContent = settings.hero_tagline || DEFAULTS.hero_tagline;
+  }
 }
+
 
 
 // Init on load

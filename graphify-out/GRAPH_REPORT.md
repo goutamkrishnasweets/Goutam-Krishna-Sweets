@@ -1,7 +1,7 @@
 # Graph Report - D:\web sites\krishna_project  (2026-06-26)
 
 ## Corpus Check
-- 1 files · ~1,327,839 words
+- 1 files · ~1,354,129 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary

@@ -365,12 +365,12 @@ footer strong{color:#fff;}
 
 <!-- DELIVERY ZONE STRIP -->
 <div class="delivery-strip" role="banner" aria-label="Delivery information">
-  🚚&nbsp;<strong>FREE Delivery within 5km</strong>&nbsp;·&nbsp;Same-day delivery available&nbsp;·&nbsp;Call&nbsp;<a href="tel:+919633541399">+91 96335 41399</a>
+  🚚&nbsp;<strong>FREE Delivery within <span id="delivery-strip-km">5</span>km</strong>&nbsp;·&nbsp;Same-day delivery available&nbsp;·&nbsp;Call&nbsp;<a href="tel:+919633541399">+91 96335 41399</a>
 </div>
 
 <section class="hero">
   <div class="hero-text">
-    <div class="badge">🚚 FREE Delivery within 5km · Mundur, Kerala</div>
+    <div class="badge">🚚 FREE Delivery within <span id="hero-badge-km">5</span>km · Mundur, Kerala</div>
     <h1>Cakes, Sweets<br><em>&amp; More</em><br>Delivered Fresh</h1>
     <p>Handcrafted cakes, traditional sweets, crispy snacks, fresh juices &amp; coffee — made fresh daily at Mundur, Kerala. Order online or walk in!</p>
     <div class="hero-btns">
@@ -378,9 +378,9 @@ footer strong{color:#fff;}
       <a href="#order" class="btn-g">🎂 Pre-book a Cake →</a>
     </div>
     <div class="stats">
-      <div><div class="stat-n">4.3★</div><div class="stat-l">Google Rating</div></div>
-      <div><div class="stat-n">140+</div><div class="stat-l">Happy Reviews</div></div>
-      <div><div class="stat-n">5 km</div><div class="stat-l">Free Delivery</div></div>
+      <div><div class="stat-n" id="stat-rating">4.3★</div><div class="stat-l">Google Rating</div></div>
+      <div><div class="stat-n" id="stat-reviews">140+</div><div class="stat-l">Happy Reviews</div></div>
+      <div><div class="stat-n" id="stat-delivery">5 km</div><div class="stat-l">Free Delivery</div></div>
     </div>
   </div>
   <div class="hero-img">
@@ -470,7 +470,7 @@ footer strong{color:#fff;}
       <!-- Delivery rules -->
       <div class="ci" style="background:#e8f8ef;border:1px solid #a8e6c1;border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.5rem;">
         <span>🚚</span>
-        <span style="color:#1a7a4a;font-weight:500"><strong>FREE delivery within 5km.</strong> We'll confirm delivery time on WhatsApp.</span>
+        <span style="color:#1a7a4a;font-weight:500"><strong>FREE delivery within <span id="order-delivery-km">5</span>km.</strong> We'll confirm delivery time on WhatsApp.</span>
       </div>
       <div class="ci" style="background:#fff8e8;border:1px solid #f0d98a;border-radius:10px;padding:0.6rem 1rem;margin-bottom:0.5rem;">
         <span>🛒</span>
@@ -1422,8 +1422,55 @@ function renderFeaturedStrips(allCakes, allSweets){
   }
 }
 
+// ════════════════════════════════════════════════
+// SETTINGS — Fetch Google Rating, Reviews & Delivery KM
+// from Google Sheets via /api/settings.
+// Owner edits the "settings" tab in Google Sheets;
+// this function picks up changes automatically on page load.
+// ════════════════════════════════════════════════
+async function loadSiteSettings() {
+  // Defaults shown while loading (match the hardcoded HTML values)
+  const DEFAULTS = { google_rating: '4.3★', review_count: '140+', delivery_km: '5' };
+
+  const isLocalFile = window.location.protocol === 'file:';
+
+  let settings = { ...DEFAULTS };
+
+  if (!isLocalFile) {
+    try {
+      const resp = await fetch('/api/settings?t=' + Date.now(), { cache: 'no-cache' });
+      if (resp.ok) {
+        const data = await resp.json();
+        settings = { ...DEFAULTS, ...data };
+        console.info('✅ Site settings loaded from Sheet:', settings);
+      }
+    } catch (err) {
+      console.warn('⚠️ Could not load site settings — using defaults.', err);
+    }
+  }
+
+  // ── Update hero stats ──────────────────────────────
+  const ratingEl  = document.getElementById('stat-rating');
+  const reviewsEl = document.getElementById('stat-reviews');
+  const deliveryEl = document.getElementById('stat-delivery');
+
+  if (ratingEl)  ratingEl.textContent  = settings.google_rating || DEFAULTS.google_rating;
+  if (reviewsEl) reviewsEl.textContent = settings.review_count   || DEFAULTS.review_count;
+
+  // Delivery km: strip any non-numeric suffix for the stat number
+  const km = (settings.delivery_km || DEFAULTS.delivery_km).toString().replace(/[^\d.]/g, '');
+  if (deliveryEl) deliveryEl.textContent = km + ' km';
+
+  // ── Update all "Xkm" delivery mentions across the page ──
+  ['delivery-strip-km', 'hero-badge-km', 'order-delivery-km'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = km;
+  });
+}
+
 // Init on load
 loadProductsFromSheet();
+loadSiteSettings();
 renderCart();
 updateFab();
 </script>

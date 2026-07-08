@@ -284,6 +284,18 @@ footer strong{color:#fff;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 
+/* ── STORE CLOSED BANNER ── */
+#store-closed-banner{display:none;background:linear-gradient(135deg,#ff6b35,#e84545);color:#fff;text-align:center;padding:0.9rem 1.5rem;font-size:0.88rem;font-weight:500;position:sticky;top:64px;z-index:90;box-shadow:0 4px 16px rgba(232,69,69,0.3);animation:fadeUp 0.4s ease both;}
+#store-closed-banner strong{font-size:0.95rem;}
+#store-closed-banner.show{display:block;}
+
+/* ── ORDER CLOSED OVERLAY ── */
+#order-closed-overlay{display:none;position:relative;background:linear-gradient(135deg,#fff8f0,#fff0f0);border:2px dashed #e84545;border-radius:22px;padding:2.5rem 2rem;text-align:center;margin-top:1rem;}
+#order-closed-overlay.show{display:block;}
+#order-closed-overlay .closed-icon{font-size:3rem;margin-bottom:0.8rem;}
+#order-closed-overlay h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--brown);margin-bottom:0.5rem;}
+#order-closed-overlay p{color:var(--gray);font-size:0.88rem;line-height:1.6;max-width:320px;margin:0 auto;}
+
 /* ── DELIVERY STRIP ── */
 .delivery-strip{background:linear-gradient(90deg,#1a7a4a,#2ecc71,#1a7a4a);background-size:200% 100%;animation:stripScroll 4s linear infinite;color:#fff;text-align:center;font-size:0.78rem;font-weight:500;padding:0.5rem 1rem;letter-spacing:0.02em;}
 @keyframes stripScroll{0%{background-position:100% 0}100%{background-position:-100% 0}}
@@ -366,6 +378,10 @@ footer strong{color:#fff;}
 <!-- DELIVERY ZONE STRIP -->
 <div class="delivery-strip" role="banner" aria-label="Delivery information">
   🚚&nbsp;<strong id="delivery-strip-strong">Delivery Available (Charges Apply)</strong>&nbsp;·&nbsp;Same-day delivery available&nbsp;·&nbsp;Call&nbsp;<a href="tel:+919633541399">+91 96335 41399</a>
+</div>
+
+<div id="store-closed-banner">
+  🚫 <strong>We're currently not accepting orders.</strong> <span id="closed-banner-msg">We'll be back soon!</span> You can still browse our menu or call us.
 </div>
 
 <section class="hero">
@@ -547,8 +563,16 @@ footer strong{color:#fff;}
         <textarea id="oAddr" placeholder="Your full address with landmark, e.g. Near Mundur School, Palakkad Road, PIN 678592" rows="2" style="resize:vertical;"></textarea>
         <div class="field-error" id="oAddrErr">Please enter your delivery address.</div>
       </div>
-      <div class="fg"><label>Special Instructions</label><textarea id="oNote" placeholder="Design ideas, allergies, any special requests..."></textarea></div>
+      <div class="fg">
+        <label>Special Instructions</label><textarea id="oNote" placeholder="Design ideas, allergies, any special requests..."></textarea></div>
       <button class="sub-btn" onclick="submitOrder()">🚚 Confirm Order &amp; Deliver via WhatsApp</button>
+    </div>
+    <!-- ORDERING CLOSED OVERLAY (shown when owner pauses orders) -->
+    <div id="order-closed-overlay">
+      <div class="closed-icon">🏪</div>
+      <h3>We're Taking a Break!</h3>
+      <p id="order-closed-msg">We're currently not accepting orders. We'll be back soon — check our opening hours or call us!</p>
+      <a href="tel:+919633541399" style="display:inline-block;margin-top:1.2rem;background:var(--rose);color:#fff;text-decoration:none;padding:0.7rem 1.6rem;border-radius:100px;font-size:0.88rem;font-weight:500;">📞 Call Us</a>
     </div>
   </div>
 </section>
@@ -664,8 +688,11 @@ document.addEventListener('click', function(e){
 });
 
 // ════════════════════════════════════════════════
-// FIX #5: TOAST NOTIFICATION (replaces auto-open cart)
+// ORDERING STATE — controlled via Google Sheet
+// ordering_enabled = YES → normal / NO → paused
 // ════════════════════════════════════════════════
+window.ORDERING_ENABLED = true; // default; updated by applySettings
+window.CLOSED_MSG = 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!';
 let _toastTimer;
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -693,6 +720,10 @@ function closeCart(){
 }
 
 function addToCart(name, price, img){
+  if (!window.ORDERING_ENABLED) {
+    showToast(`🚫 Orders are paused right now. Call us instead!`);
+    return;
+  }
   const existing = cart.find(i => i.name === name);
   if(existing){ existing.qty += 1; }
   else { cart.push({name, price, img, qty:1}); }
@@ -798,6 +829,10 @@ function renderCart(){
 }
 
 function sendCartToWhatsApp(){
+  if (!window.ORDERING_ENABLED) {
+    showToast(`🚫 Orders are paused right now. Please call us!`);
+    return;
+  }
   if(cart.length === 0){ alert('Your cart is empty!'); return; }
   const note = document.getElementById('cartNote').value.trim();
   let hasPrices = false;
@@ -956,6 +991,10 @@ function card(item, index){
 }
 
 function addToCartByKey(key){
+  if (!window.ORDERING_ENABLED) {
+    showToast(`🚫 Orders are paused right now. Call us instead!`);
+    return;
+  }
   const item = itemRegistry[key];
   if(item) addToCart(item.name, item.price, item.img);
 }
@@ -1060,6 +1099,10 @@ function markError(id, msg){
   return false;
 }
 function submitOrder(){
+  if (!window.ORDERING_ENABLED) {
+    showToast(`🚫 Orders are paused right now. Please call us!`);
+    return;
+  }
   clearFormErrors();
   const n   = document.getElementById('oName').value.trim();
   const p   = document.getElementById('oPhone').value.trim();
@@ -1444,7 +1487,9 @@ async function loadSiteSettings() {
     amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
     amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
     hero_headline: 'Cakes, Sweets & More Delivered Fresh',
-    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!'
+    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
+    ordering_enabled: 'YES',
+    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!'
   };
 
   // 1. Try to load from localStorage first for instant render (no flash/jump)
@@ -1488,7 +1533,9 @@ async function loadSiteSettings() {
           settings.amenity_lgbtq !== cached.amenity_lgbtq ||
           settings.amenity_quick_visit !== cached.amenity_quick_visit ||
           settings.hero_headline !== cached.hero_headline ||
-          settings.hero_tagline !== cached.hero_tagline;
+          settings.hero_tagline !== cached.hero_tagline ||
+          settings.ordering_enabled !== cached.ordering_enabled ||
+          settings.closed_message !== cached.closed_message;
 
         if (hasChanged) {
           applySettings(settings);
@@ -1515,7 +1562,9 @@ function applySettings(settings) {
     amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
     amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
     hero_headline: 'Cakes, Sweets & More Delivered Fresh',
-    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!'
+    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
+    ordering_enabled: 'YES',
+    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!'
   };
   
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
@@ -1644,7 +1693,28 @@ function applySettings(settings) {
   if (taglineEl && settings.hero_tagline) {
     taglineEl.textContent = settings.hero_tagline || DEFAULTS.hero_tagline;
   }
+
+  // ── Toggle ordering state ──────────────────────────────
+  const orderingOn = (settings.ordering_enabled || 'YES').toString().trim().toUpperCase() !== 'NO';
+  window.ORDERING_ENABLED = orderingOn;
+  const closedMsg = (settings.closed_message || DEFAULTS.closed_message).toString().trim();
+  window.CLOSED_MSG = closedMsg;
+
+  // Closed banner (sticky top bar)
+  const banner    = document.getElementById('store-closed-banner');
+  const bannerMsg = document.getElementById('closed-banner-msg');
+  if (banner)    banner.classList.toggle('show', !orderingOn);
+  if (bannerMsg) bannerMsg.textContent = closedMsg;
+
+  // Order section closed overlay + dim the form
+  const orderOverlay    = document.getElementById('order-closed-overlay');
+  const orderOverlayMsg = document.getElementById('order-closed-msg');
+  if (orderOverlay)    orderOverlay.classList.toggle('show', !orderingOn);
+  if (orderOverlayMsg) orderOverlayMsg.textContent = closedMsg;
+  const orderForm = document.querySelector('#order .order-form');
+  if (orderForm) { orderForm.style.opacity = orderingOn ? '' : '0.35'; orderForm.style.pointerEvents = orderingOn ? '' : 'none'; }
 }
+
 
 
 

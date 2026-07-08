@@ -666,6 +666,34 @@ footer strong{color:#fff;}
 
 <script>
 // ════════════════════════════════════════════════
+// GLOBAL CONSTANTS & HELPERS
+// ════════════════════════════════════════════════
+const SITE_DEFAULTS = {
+  google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
+  address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
+  phone: '+91 96335 41399', phone_alt: '',
+  opening_hours: 'Open Daily: 6 AM – 10 PM',
+  hero_headline: 'Cakes, Sweets & More Delivered Fresh',
+  hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
+  ordering_enabled: 'YES',
+  closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!',
+  'Wheelchair-accessible toilet': 'YES',
+  'Free parking (garage & lot)': 'YES',
+  'Delivery available': 'YES',
+  'Takeaway available': 'YES',
+  'Coffee served': 'YES',
+  'Restroom available': 'YES',
+  'Credit, Debit & UPI/NFC payments': 'YES',
+  'LGBTQ+ friendly': 'YES',
+  'Quick visit friendly': 'YES'
+};
+
+function safeStringify(obj) {
+  if (!obj) return '';
+  return JSON.stringify(obj, Object.keys(obj).sort());
+}
+
+// ════════════════════════════════════════════════
 // FIX #4: MOBILE NAV TOGGLE
 // ════════════════════════════════════════════════
 function toggleMobileNav(){
@@ -1364,6 +1392,28 @@ async function loadProductsFromSheet(){
 
     if(rows.length === 0) throw new Error('Sheet returned 0 rows');
 
+    // ── Parse site settings directly from the CSV ──
+    const sheetSettings = {};
+    rows.forEach(r => {
+      if (r.setting_key && r.setting_value) {
+        sheetSettings[r.setting_key] = r.setting_value;
+      }
+    });
+
+    const finalSettings = { ...SITE_DEFAULTS, ...sheetSettings };
+    
+    // Check if settings changed from cache
+    let cached = null;
+    try {
+      const stored = localStorage.getItem('rkb_settings');
+      if (stored) cached = JSON.parse(stored);
+    } catch(e){}
+
+    if (safeStringify(finalSettings) !== safeStringify(cached)) {
+      applySettings(finalSettings);
+      localStorage.setItem('rkb_settings', JSON.stringify(finalSettings));
+    }
+
     // Auto-build category buttons from existing `category` + `type` columns.
     // If the sheet has a `category_button_name` column, that label is used.
     // Otherwise falls back to the CAT_LABELS map defined in code.
@@ -1477,31 +1527,23 @@ function renderFeaturedStrips(allCakes, allSweets){
 // this function picks up changes automatically on page load.
 // ════════════════════════════════════════════════
 async function loadSiteSettings() {
-  // Defaults shown if no cached settings exist
-  const DEFAULTS = {
-    google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
-    address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
-    phone: '+91 96335 4139function applySettings(settings) {
-  const DEFAULTS = {
-    google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
-    address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
-    phone: '+91 96335 41399', phone_alt: '',
-    opening_hours: 'Open Daily: 6 AM – 10 PM',
-    hero_headline: 'Cakes, Sweets & More Delivered Fresh',
-    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
-    ordering_enabled: 'YES',
-    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!',
-    // Dynamic default amenities (display text as keys, YES/NO as values)
-    'Wheelchair-accessible toilet': 'YES',
-    'Free parking (garage & lot)': 'YES',
-    'Delivery available': 'YES',
-    'Takeaway available': 'YES',
-    'Coffee served': 'YES',
-    'Restroom available': 'YES',
-    'Credit, Debit & UPI/NFC payments': 'YES',
-    'LGBTQ+ friendly': 'YES',
-    'Quick visit friendly': 'YES'
-  };
+  let cached = null;
+  try {
+    const stored = localStorage.getItem('rkb_settings');
+    if (stored) {
+      cached = JSON.parse(stored);
+      applySettings(cached);
+    } else {
+      applySettings(SITE_DEFAULTS);
+    }
+  } catch (e) {
+    console.warn('Failed to load settings from cache', e);
+    applySettings(SITE_DEFAULTS);
+  }
+}
+
+function applySettings(settings) {
+  const DEFAULTS = SITE_DEFAULTS;
   
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
   const rawKmVal = settings.free_delivery_km !== undefined ? settings.free_delivery_km : settings.delivery_km;

@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "netlify/**",
+      "netlify.toml",
+      "README.md",
+      "GEMINI_SHEETS_INTEGRATION.md",
+      "SHEET_SETTINGS_SETUP.md",
+      "SHEET_TEMPLATE.md"
+    ]
+  }
+}

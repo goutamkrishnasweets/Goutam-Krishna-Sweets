@@ -1201,7 +1201,7 @@ document.getElementById('oDate').min = minDate.toISOString().split('T')[0];
 // Published Google Sheets CSV endpoint & fallback endpoints
 // 💡 TIP: Paste your published Google Sheet CSV URL here to fetch directly (bypassing Netlify completely!)
 const GOOGLE_SHEET_CSV_URL = '';
-const NETLIFY_PROXY_URL = GOOGLE_SHEET_CSV_URL || '/api/menu';
+const NETLIFY_PROXY_URL = GOOGLE_SHEET_CSV_URL || 'https://goutamkrishnasweets.netlify.app/api/menu';
 const LOCAL_FALLBACK_URL = 'menu_data.csv';
 
 const LOCAL_FALLBACK_CSV = `name,alternate_name,type,category,tag,image_key,price,available,setting_key,setting_value

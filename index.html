@@ -1432,26 +1432,49 @@ function renderFeaturedStrips(allCakes, allSweets){
 // this function picks up changes automatically on page load.
 // ════════════════════════════════════════════════
 async function loadSiteSettings() {
-  // Defaults shown while loading (match the hardcoded HTML values)
-  const DEFAULTS = { google_rating: '4.3★', review_count: '140+', free_delivery_km: '5' };
+  // Defaults shown if no cached settings exist
+  const DEFAULTS = { google_rating: '4.9★', review_count: '250+', free_delivery_km: '0' };
 
+  // 1. Try to load from localStorage first for instant render (no flash/jump)
+  let cached = null;
+  try {
+    const stored = localStorage.getItem('rkb_settings');
+    if (stored) {
+      cached = JSON.parse(stored);
+      applySettings(cached);
+    }
+  } catch (e) {
+    console.warn('Failed to load settings from cache', e);
+  }
+
+  // 2. Fetch fresh settings from the API
   const isLocalFile = window.location.protocol === 'file:';
-
-  let settings = { ...DEFAULTS };
-
   if (!isLocalFile) {
     try {
       const resp = await fetch('/api/settings?t=' + Date.now(), { cache: 'no-cache' });
       if (resp.ok) {
         const data = await resp.json();
-        settings = { ...DEFAULTS, ...data };
-        console.info('✅ Site settings loaded from Sheet:', settings);
+        const settings = { ...DEFAULTS, ...data };
+        
+        // 3. If settings changed from cache, apply them and update cache
+        if (JSON.stringify(settings) !== JSON.stringify(cached)) {
+          applySettings(settings);
+          localStorage.setItem('rkb_settings', JSON.stringify(settings));
+        }
+        console.info('✅ Site settings synced from Sheet:', settings);
       }
     } catch (err) {
-      console.warn('⚠️ Could not load site settings — using defaults.', err);
+      console.warn('⚠️ Could not sync site settings — using cached or defaults.', err);
+      if (!cached) applySettings(DEFAULTS);
     }
+  } else {
+    if (!cached) applySettings(DEFAULTS);
   }
+}
 
+function applySettings(settings) {
+  const DEFAULTS = { google_rating: '4.9★', review_count: '250+', free_delivery_km: '0' };
+  
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
   const rawKmVal = settings.free_delivery_km !== undefined ? settings.free_delivery_km : settings.delivery_km;
   const km = (rawKmVal !== undefined ? rawKmVal : DEFAULTS.free_delivery_km).toString().replace(/[^\d.]/g, '');

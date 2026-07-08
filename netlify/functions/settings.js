@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
   const DEFAULTS = {
     google_rating: '4.3\u2605',
     review_count: '140+',
-    delivery_km: '5',
+    free_delivery_km: '5',
   };
 
   // Reuse the same env var as menu.js — no new variable needed!

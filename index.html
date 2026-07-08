@@ -476,10 +476,11 @@ footer strong{color:#fff;}
         <span>🛒</span>
         <span style="font-size:0.82rem;color:#7a5c00;">Ordering sweets or snacks? Add them to cart and send via WhatsApp — no form needed.</span>
       </div>
-      <div class="ci"><span>📍</span><span>Mundur Chungam, Palakkad 678592</span></div>
-      <div class="ci"><span>📞</span><span><a href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
+      <div class="ci"><span>📍</span><span id="order-address">Mundur Chungam, Palakkad 678592</span></div>
+      <div class="ci"><span>📞</span><span><a id="order-phone" href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
+      <div class="ci" id="order-phone-alt-row" style="display:none"><span>📞</span><span><a id="order-phone-alt" href="#" style="color:inherit;text-decoration:none"></a> <span style="font-size:0.75rem;color:var(--gray);">(Alt)</span></span></div>
       <div class="ci"><span>💬</span><span>WhatsApp Orders Welcome</span></div>
-      <div class="ci"><span>🕐</span><span>Open: 6 AM – 10 PM Daily · Walk-in welcome</span></div>
+      <div class="ci"><span>🕐</span><span id="order-hours">Open: 6 AM – 10 PM Daily · Walk-in welcome</span></div>
     </div>
     <!-- FIX #7: Form with full validation -->
     <div class="order-form">
@@ -566,9 +567,10 @@ footer strong{color:#fff;}
     </iframe>
   </div>
   <div class="map-info">
-    <div class="ci" style="margin-bottom:0"><span>📍</span><span>Mundur Chungam (Junction), Palakkad, Kerala 678592</span></div>
-    <div class="ci" style="margin-bottom:0"><span>📞</span><span><a href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
-    <div class="ci" style="margin-bottom:0"><span>🕐</span><span>Open Daily: 6 AM – 10 PM</span></div>
+    <div class="ci" style="margin-bottom:0"><span>📍</span><span id="map-address">Mundur Chungam (Junction), Palakkad, Kerala 678592</span></div>
+    <div class="ci" style="margin-bottom:0"><span>📞</span><span><a id="map-phone" href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
+    <div class="ci" id="map-phone-alt-row" style="display:none;margin-bottom:0"><span>📞</span><span><a id="map-phone-alt" href="#" style="color:inherit;text-decoration:none"></a> <span style="font-size:0.75rem;color:var(--gray);">(Alt)</span></span></div>
+    <div class="ci" style="margin-bottom:0"><span>🕐</span><span id="map-hours">Open Daily: 6 AM – 10 PM</span></div>
     <a href="https://www.google.com/maps/place/Goutam+Krishna+Sweets/@10.8364119,76.5803527,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba870ee86d25c09:0x509aba1ac24453b!8m2!3d10.8364119!4d76.5803527" target="_blank" rel="noopener noreferrer" class="map-cta">📌 Open in Google Maps</a>
   </div>
 </section>
@@ -577,16 +579,16 @@ footer strong{color:#fff;}
 <section style="background:var(--warm);padding:2.5rem 6vw 3rem;">
   <div class="sec-label">Visit Us</div>
   <h2 class="sec-title" style="margin-bottom:1.5rem;">Services &amp; <em>Amenities</em></h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;">
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">♿ <span style="font-size:0.82rem;color:var(--brown);">Wheelchair-accessible toilet</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚗 <span style="font-size:0.82rem;color:var(--brown);">Free parking (garage &amp; lot)</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚚 <span style="font-size:0.82rem;color:var(--brown);">Delivery available</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🛍️ <span style="font-size:0.82rem;color:var(--brown);">Takeaway available</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">☕ <span style="font-size:0.82rem;color:var(--brown);">Coffee served</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚻 <span style="font-size:0.82rem;color:var(--brown);">Restroom available</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">💳 <span style="font-size:0.82rem;color:var(--brown);">Credit, Debit &amp; UPI/NFC payments</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🏳️‍🌈 <span style="font-size:0.82rem;color:var(--brown);">LGBTQ+ friendly</span></div>
-    <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">⚡ <span style="font-size:0.82rem;color:var(--brown);">Quick visit friendly</span></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;" id="amenities-grid">
+    <div id="amenity-wheelchair" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">♿ <span style="font-size:0.82rem;color:var(--brown);">Wheelchair-accessible toilet</span></div>
+    <div id="amenity-parking" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚗 <span style="font-size:0.82rem;color:var(--brown);">Free parking (garage &amp; lot)</span></div>
+    <div id="amenity-delivery" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚚 <span style="font-size:0.82rem;color:var(--brown);">Delivery available</span></div>
+    <div id="amenity-takeaway" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🛍️ <span style="font-size:0.82rem;color:var(--brown);">Takeaway available</span></div>
+    <div id="amenity-coffee" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">☕ <span style="font-size:0.82rem;color:var(--brown);">Coffee served</span></div>
+    <div id="amenity-restroom" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🚻 <span style="font-size:0.82rem;color:var(--brown);">Restroom available</span></div>
+    <div id="amenity-payments" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">💳 <span style="font-size:0.82rem;color:var(--brown);">Credit, Debit &amp; UPI/NFC payments</span></div>
+    <div id="amenity-lgbtq" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">🏳️‍🌈 <span style="font-size:0.82rem;color:var(--brown);">LGBTQ+ friendly</span></div>
+    <div id="amenity-quick-visit" style="background:#fff;border-radius:14px;padding:1rem 1.1rem;display:flex;align-items:center;gap:0.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">⚡ <span style="font-size:0.82rem;color:var(--brown);">Quick visit friendly</span></div>
   </div>
 </section>
 
@@ -1433,7 +1435,15 @@ function renderFeaturedStrips(allCakes, allSweets){
 // ════════════════════════════════════════════════
 async function loadSiteSettings() {
   // Defaults shown if no cached settings exist
-  const DEFAULTS = { google_rating: '4.9★', review_count: '250+', free_delivery_km: '0' };
+  const DEFAULTS = {
+    google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
+    address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
+    phone: '+91 96335 41399', phone_alt: '',
+    opening_hours: 'Open Daily: 6 AM – 10 PM',
+    amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
+    amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
+    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES'
+  };
 
   // 1. Try to load from localStorage first for instant render (no flash/jump)
   let cached = null;
@@ -1461,7 +1471,20 @@ async function loadSiteSettings() {
           settings.google_rating !== cached.google_rating ||
           settings.review_count !== cached.review_count ||
           settings.free_delivery_km !== cached.free_delivery_km ||
-          settings.delivery_km !== cached.delivery_km;
+          settings.delivery_km !== cached.delivery_km ||
+          settings.address !== cached.address ||
+          settings.phone !== cached.phone ||
+          settings.phone_alt !== cached.phone_alt ||
+          settings.opening_hours !== cached.opening_hours ||
+          settings.amenity_wheelchair !== cached.amenity_wheelchair ||
+          settings.amenity_parking !== cached.amenity_parking ||
+          settings.amenity_delivery !== cached.amenity_delivery ||
+          settings.amenity_takeaway !== cached.amenity_takeaway ||
+          settings.amenity_coffee !== cached.amenity_coffee ||
+          settings.amenity_restroom !== cached.amenity_restroom ||
+          settings.amenity_payments !== cached.amenity_payments ||
+          settings.amenity_lgbtq !== cached.amenity_lgbtq ||
+          settings.amenity_quick_visit !== cached.amenity_quick_visit;
 
         if (hasChanged) {
           applySettings(settings);
@@ -1479,7 +1502,15 @@ async function loadSiteSettings() {
 }
 
 function applySettings(settings) {
-  const DEFAULTS = { google_rating: '4.9★', review_count: '250+', free_delivery_km: '0' };
+  const DEFAULTS = {
+    google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
+    address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
+    phone: '+91 96335 41399', phone_alt: '',
+    opening_hours: 'Open Daily: 6 AM – 10 PM',
+    amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
+    amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
+    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES'
+  };
   
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
   const rawKmVal = settings.free_delivery_km !== undefined ? settings.free_delivery_km : settings.delivery_km;
@@ -1541,7 +1572,62 @@ function applySettings(settings) {
       labelTextEl.innerHTML = `(paid delivery only)`;
     }
   }
+
+  // ── Update contact info ────────────────────────────
+  const addr    = settings.address       || DEFAULTS.address;
+  const phone   = settings.phone         || DEFAULTS.phone;
+  const phoneAlt= (settings.phone_alt    || '').trim();
+  const hours   = settings.opening_hours || DEFAULTS.opening_hours;
+
+  // Address
+  const orderAddrEl = document.getElementById('order-address');
+  const mapAddrEl   = document.getElementById('map-address');
+  if (orderAddrEl) orderAddrEl.textContent = addr;
+  if (mapAddrEl)   mapAddrEl.textContent   = addr;
+
+  // Primary phone
+  const setPhone = (id, num) => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = num; el.href = 'tel:' + num.replace(/\s/g, ''); }
+  };
+  setPhone('order-phone', phone);
+  setPhone('map-phone',   phone);
+
+  // Alt phone (show row only if set)
+  const showAlt = phoneAlt.length > 0;
+  ['order-phone-alt-row','map-phone-alt-row'].forEach(rowId => {
+    const row = document.getElementById(rowId);
+    if (row) row.style.display = showAlt ? '' : 'none';
+  });
+  if (showAlt) {
+    setPhone('order-phone-alt', phoneAlt);
+    setPhone('map-phone-alt',   phoneAlt);
+  }
+
+  // Hours
+  const orderHoursEl = document.getElementById('order-hours');
+  const mapHoursEl   = document.getElementById('map-hours');
+  if (orderHoursEl) orderHoursEl.textContent = hours;
+  if (mapHoursEl)   mapHoursEl.textContent   = hours;
+
+  // ── Toggle amenity tiles ───────────────────────────
+  const amenityMap = {
+    'amenity-wheelchair': settings.amenity_wheelchair,
+    'amenity-parking':    settings.amenity_parking,
+    'amenity-delivery':   settings.amenity_delivery,
+    'amenity-takeaway':   settings.amenity_takeaway,
+    'amenity-coffee':     settings.amenity_coffee,
+    'amenity-restroom':   settings.amenity_restroom,
+    'amenity-payments':   settings.amenity_payments,
+    'amenity-lgbtq':      settings.amenity_lgbtq,
+    'amenity-quick-visit':settings.amenity_quick_visit,
+  };
+  Object.entries(amenityMap).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = (val || 'YES').toString().trim().toUpperCase() === 'NO' ? 'none' : '';
+  });
 }
+
 
 // Init on load
 loadProductsFromSheet();

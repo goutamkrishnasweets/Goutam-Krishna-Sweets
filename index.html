@@ -28,7 +28,7 @@
   "name": "Goutam Krishna Sweets",
   "description": "Handcrafted cakes, traditional Kerala sweets, crispy snacks and fresh juices in Mundur, Kerala.",
   "url": "https://goutamkrishnasweets.netlify.app",
-  "telephone": "+919633541399",
+  "telephone": "+919567499723",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Mundur",
@@ -45,7 +45,7 @@
   "openingHours": "Mo-Su 06:00-22:00",
   "servesCuisine": ["Bakery", "Indian Sweets", "Kerala Sweets"],
   "priceRange": "₹-₹₹",
-  "sameAs": ["https://wa.me/919633541399"]
+  "sameAs": ["https://wa.me/919567499723"]
 }
 </script>
 
@@ -493,7 +493,7 @@ footer strong{color:#fff;}
         <span style="font-size:0.82rem;color:#7a5c00;">Ordering sweets or snacks? Add them to cart and send via WhatsApp — no form needed.</span>
       </div>
       <div class="ci"><span>📍</span><span id="order-address">Mundur Chungam, Palakkad 678592</span></div>
-      <div class="ci"><span>📞</span><span><a id="order-phone" href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
+      <div class="ci"><span>📞</span><span><a id="order-phone" href="tel:+919567499723" style="color:inherit;text-decoration:none">+91 95674 99723</a></span></div>
       <div class="ci" id="order-phone-alt-row" style="display:none"><span>📞</span><span><a id="order-phone-alt" href="#" style="color:inherit;text-decoration:none"></a> <span style="font-size:0.75rem;color:var(--gray);">(Alt)</span></span></div>
       <div class="ci"><span>💬</span><span>WhatsApp Orders Welcome</span></div>
       <div class="ci"><span>🕐</span><span id="order-hours">Open: 6 AM – 10 PM Daily · Walk-in welcome</span></div>
@@ -572,7 +572,7 @@ footer strong{color:#fff;}
       <div class="closed-icon">🏪</div>
       <h3>We're Taking a Break!</h3>
       <p id="order-closed-msg">We're currently not accepting orders. We'll be back soon — check our opening hours or call us!</p>
-      <a href="tel:+919633541399" style="display:inline-block;margin-top:1.2rem;background:var(--rose);color:#fff;text-decoration:none;padding:0.7rem 1.6rem;border-radius:100px;font-size:0.88rem;font-weight:500;">📞 Call Us</a>
+      <a href="tel:+919567499723" style="display:inline-block;margin-top:1.2rem;background:var(--rose);color:#fff;text-decoration:none;padding:0.7rem 1.6rem;border-radius:100px;font-size:0.88rem;font-weight:500;">📞 Call Us</a>
     </div>
   </div>
 </section>
@@ -592,7 +592,7 @@ footer strong{color:#fff;}
   </div>
   <div class="map-info">
     <div class="ci" style="margin-bottom:0"><span>📍</span><span id="map-address">Mundur Chungam (Junction), Palakkad, Kerala 678592</span></div>
-    <div class="ci" style="margin-bottom:0"><span>📞</span><span><a id="map-phone" href="tel:+919633541399" style="color:inherit;text-decoration:none">+91 96335 41399</a></span></div>
+    <div class="ci" style="margin-bottom:0"><span>📞</span><span><a id="map-phone" href="tel:+919567499723" style="color:inherit;text-decoration:none">+91 95674 99723</a></span></div>
     <div class="ci" id="map-phone-alt-row" style="display:none;margin-bottom:0"><span>📞</span><span><a id="map-phone-alt" href="#" style="color:inherit;text-decoration:none"></a> <span style="font-size:0.75rem;color:var(--gray);">(Alt)</span></span></div>
     <div class="ci" style="margin-bottom:0"><span>🕐</span><span id="map-hours">Open Daily: 6 AM – 10 PM</span></div>
     <a href="https://www.google.com/maps/place/Goutam+Krishna+Sweets/@10.8364119,76.5803527,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba870ee86d25c09:0x509aba1ac24453b!8m2!3d10.8364119!4d76.5803527" target="_blank" rel="noopener noreferrer" class="map-cta">📌 Open in Google Maps</a>
@@ -618,7 +618,7 @@ footer strong{color:#fff;}
 
 <!-- FIX #2: Updated copyright year to 2026 -->
 <footer><p>© 2026 <strong>Goutam Krishna Sweets</strong> · Mundur, Kerala · Handcrafted with ❤️ · All Rights Reserved</p></footer>
-<a href="https://wa.me/919633541399" class="wa" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/919567499723" class="wa" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">💬</a>
 
 <!-- CART FAB -->
 <button class="cart-fab" id="cartFab" onclick="openCart()" title="View Cart" aria-label="View cart">
@@ -671,7 +671,7 @@ footer strong{color:#fff;}
 const SITE_DEFAULTS = {
   google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
   address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
-  phone: '+91 96335 41399', phone_alt: '',
+  phone: '+91 95674 99723', phone_alt: '',
   opening_hours: 'Open Daily: 6 AM – 10 PM',
   hero_headline: 'Cakes, Sweets & More Delivered Fresh',
   hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
@@ -691,6 +691,16 @@ const SITE_DEFAULTS = {
 function safeStringify(obj) {
   if (!obj) return '';
   return JSON.stringify(obj, Object.keys(obj).sort());
+}
+
+// WhatsApp order number — updated dynamically from Google Sheet phone setting
+let WA_NUMBER = '919567499723'; // default fallback — updated from sheet phone on load
+function toWaNumber(phone) {
+  // Strip spaces, dashes, brackets; ensure country code 91 prefix
+  const digits = phone.replace(/[^\d]/g, '');
+  if (digits.startsWith('91') && digits.length === 12) return digits;
+  if (digits.length === 10) return '91' + digits;
+  return digits;
 }
 
 // ════════════════════════════════════════════════
@@ -877,7 +887,7 @@ function sendCartToWhatsApp(){
     `📋 *Order Items:*\n${lines}${subStr}\n\n` +
     (note ? `📝 *Instructions:* ${note}\n\n` : '') +
     `Please confirm my order! 🙏`;
-  window.open('https://wa.me/919633541399?text=' + encodeURIComponent(msg), '_blank');
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
 // ════════════════════════════════════════════════
@@ -1162,7 +1172,7 @@ function submitOrder(){
     `📅 Delivery Date: ${d}\n✏️ Cake Message: ${m || 'None'}\n` +
     `📍 Delivery Address: ${addr}\n📝 Notes: ${nt || 'None'}\n\n` +
     `🙏 Please confirm availability & delivery time. Thank you!`;
-  window.open('https://wa.me/919633541399?text=' + encodeURIComponent(txt), '_blank');
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(txt), '_blank');
 }
 
 // Smooth scroll for anchor links
@@ -1612,6 +1622,9 @@ function applySettings(settings) {
   const addr    = settings.address       || DEFAULTS.address;
   const phone   = settings.phone         || DEFAULTS.phone;
   const phoneAlt= (settings.phone_alt    || '').trim();
+
+  // Update global WA_NUMBER so all WhatsApp order buttons use this number
+  WA_NUMBER = toWaNumber(phone);
   const hours   = settings.opening_hours || DEFAULTS.opening_hours;
 
   // Address

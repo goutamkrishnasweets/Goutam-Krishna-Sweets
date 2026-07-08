@@ -1471,8 +1471,8 @@ async function loadSiteSettings() {
       deliveryEl.textContent = km + ' km';
       if (deliveryLabelEl) deliveryLabelEl.textContent = 'Free Delivery';
     } else {
-      deliveryEl.textContent = 'Available';
-      if (deliveryLabelEl) deliveryLabelEl.textContent = 'Delivery Service';
+      deliveryEl.textContent = 'Paid';
+      if (deliveryLabelEl) deliveryLabelEl.textContent = 'Delivery Only';
     }
   }
 
@@ -1483,7 +1483,7 @@ async function loadSiteSettings() {
     if (isFree) {
       parent.innerHTML = `FREE Delivery within <span id="delivery-strip-km">${km}</span>km`;
     } else {
-      parent.innerHTML = `Delivery Available <span style="font-weight:normal;opacity:0.9">(Charges Apply)</span><span id="delivery-strip-km" style="display:none">0</span>`;
+      parent.innerHTML = `Paid Delivery Only<span id="delivery-strip-km" style="display:none">0</span>`;
     }
   }
 
@@ -1493,7 +1493,7 @@ async function loadSiteSettings() {
     if (isFree) {
       parent.innerHTML = `🚚 FREE Delivery within <span id="hero-badge-km">${km}</span>km · Mundur, Kerala`;
     } else {
-      parent.innerHTML = `🚚 Delivery Available (Charges Apply) · Mundur, Kerala<span id="hero-badge-km" style="display:none">0</span>`;
+      parent.innerHTML = `🚚 Paid Delivery Only · Mundur, Kerala<span id="hero-badge-km" style="display:none">0</span>`;
     }
   }
 
@@ -1503,7 +1503,7 @@ async function loadSiteSettings() {
     if (isFree) {
       parent.innerHTML = `<strong>FREE delivery within <span id="order-delivery-km">${km}</span>km.</strong> We'll confirm delivery time on WhatsApp.`;
     } else {
-      parent.innerHTML = `<strong>Delivery available (charges apply).</strong> We'll confirm delivery time and charges on WhatsApp.<span id="order-delivery-km" style="display:none">0</span>`;
+      parent.innerHTML = `<strong>Paid delivery only.</strong> We'll confirm delivery charges and time on WhatsApp.<span id="order-delivery-km" style="display:none">0</span>`;
     }
   }
 
@@ -1513,7 +1513,7 @@ async function loadSiteSettings() {
     if (isFree) {
       parent.innerHTML = `(free delivery within <span id="label-delivery-km">${km}</span>km)`;
     } else {
-      parent.innerHTML = `(delivery charges apply)<span id="label-delivery-km" style="display:none">0</span>`;
+      parent.innerHTML = `(paid delivery only)<span id="label-delivery-km" style="display:none">0</span>`;
     }
   }
 }

@@ -5,7 +5,7 @@
 | Column       | What to put                                         | Example            |
 |--------------|-----------------------------------------------------|--------------------|
 | name         | Product name (as shown on website)                  | Black Forest       |
-| alt          | Malayalam / alternate name (optional)               | Jilebi · ജലേബി    |
+| alternate_name | Malayalam / alternate name (optional)               | Jilebi · ജലേബി    |
 | type         | cake OR sweet                                       | cake               |
 | category     | See categories below                                | chocolate          |
 | tag          | Small badge label (optional, leave blank = no badge)| Bestseller         |

@@ -61,9 +61,27 @@ exports.handler = async function (event, context) {
 
     const settings = { ...DEFAULTS };
 
+    function splitCsvLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
     lines.slice(1).forEach(line => {
-      // Simple split (settings values won't have commas)
-      const cols = line.split(',');
+      const cols = splitCsvLine(line);
       const key = (cols[jIdx] || '').trim().replace(/^"|"$/g, '');
       const val = (cols[kIdx] || '').trim().replace(/^"|"$/g, '');
       if (key && val) {

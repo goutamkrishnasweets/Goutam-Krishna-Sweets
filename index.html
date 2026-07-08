@@ -1481,90 +1481,26 @@ async function loadSiteSettings() {
   const DEFAULTS = {
     google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
     address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
-    phone: '+91 96335 41399', phone_alt: '',
-    opening_hours: 'Open Daily: 6 AM – 10 PM',
-    amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
-    amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
-    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
-    hero_headline: 'Cakes, Sweets & More Delivered Fresh',
-    hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
-    ordering_enabled: 'YES',
-    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!'
-  };
-
-  // 1. Try to load from localStorage first for instant render (no flash/jump)
-  let cached = null;
-  try {
-    const stored = localStorage.getItem('rkb_settings');
-    if (stored) {
-      cached = JSON.parse(stored);
-      applySettings(cached);
-    }
-  } catch (e) {
-    console.warn('Failed to load settings from cache', e);
-  }
-
-  // 2. Fetch fresh settings from the API
-  const isLocalFile = window.location.protocol === 'file:';
-  if (!isLocalFile) {
-    try {
-      const resp = await fetch('/api/settings?t=' + Date.now(), { cache: 'no-cache' });
-      if (resp.ok) {
-        const data = await resp.json();
-        const settings = { ...DEFAULTS, ...data };
-        
-        // 3. If settings changed from cache, apply them and update cache
-        const hasChanged = !cached ||
-          settings.google_rating !== cached.google_rating ||
-          settings.review_count !== cached.review_count ||
-          settings.free_delivery_km !== cached.free_delivery_km ||
-          settings.delivery_km !== cached.delivery_km ||
-          settings.address !== cached.address ||
-          settings.phone !== cached.phone ||
-          settings.phone_alt !== cached.phone_alt ||
-          settings.opening_hours !== cached.opening_hours ||
-          settings.amenity_wheelchair !== cached.amenity_wheelchair ||
-          settings.amenity_parking !== cached.amenity_parking ||
-          settings.amenity_delivery !== cached.amenity_delivery ||
-          settings.amenity_takeaway !== cached.amenity_takeaway ||
-          settings.amenity_coffee !== cached.amenity_coffee ||
-          settings.amenity_restroom !== cached.amenity_restroom ||
-          settings.amenity_payments !== cached.amenity_payments ||
-          settings.amenity_lgbtq !== cached.amenity_lgbtq ||
-          settings.amenity_quick_visit !== cached.amenity_quick_visit ||
-          settings.hero_headline !== cached.hero_headline ||
-          settings.hero_tagline !== cached.hero_tagline ||
-          settings.ordering_enabled !== cached.ordering_enabled ||
-          settings.closed_message !== cached.closed_message;
-
-        if (hasChanged) {
-          applySettings(settings);
-          localStorage.setItem('rkb_settings', JSON.stringify(settings));
-        }
-        console.info('✅ Site settings synced from Sheet:', settings);
-      }
-    } catch (err) {
-      console.warn('⚠️ Could not sync site settings — using cached or defaults.', err);
-      if (!cached) applySettings(DEFAULTS);
-    }
-  } else {
-    if (!cached) applySettings(DEFAULTS);
-  }
-}
-
-function applySettings(settings) {
+    phone: '+91 96335 4139function applySettings(settings) {
   const DEFAULTS = {
     google_rating: '4.9★', review_count: '250+', free_delivery_km: '0',
     address: 'Mundur Chungam (Junction), Palakkad, Kerala 678592',
     phone: '+91 96335 41399', phone_alt: '',
     opening_hours: 'Open Daily: 6 AM – 10 PM',
-    amenity_wheelchair: 'YES', amenity_parking: 'YES', amenity_delivery: 'YES',
-    amenity_takeaway: 'YES', amenity_coffee: 'YES', amenity_restroom: 'YES',
-    amenity_payments: 'YES', amenity_lgbtq: 'YES', amenity_quick_visit: 'YES',
     hero_headline: 'Cakes, Sweets & More Delivered Fresh',
     hero_tagline: 'Handcrafted cakes, traditional sweets, crispy snacks, fresh juices & coffee — made fresh daily at Mundur, Kerala. Order online or walk in!',
     ordering_enabled: 'YES',
-    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!'
+    closed_message: 'We\'re currently not accepting orders. We\'ll be back soon — check our opening hours or call us!',
+    // Dynamic default amenities (display text as keys, YES/NO as values)
+    'Wheelchair-accessible toilet': 'YES',
+    'Free parking (garage & lot)': 'YES',
+    'Delivery available': 'YES',
+    'Takeaway available': 'YES',
+    'Coffee served': 'YES',
+    'Restroom available': 'YES',
+    'Credit, Debit & UPI/NFC payments': 'YES',
+    'LGBTQ+ friendly': 'YES',
+    'Quick visit friendly': 'YES'
   };
   
   // Backwards compatibility if they type either delivery_km or free_delivery_km in sheet
@@ -1613,9 +1549,9 @@ function applySettings(settings) {
   const orderAlertEl = document.getElementById('order-delivery-alert');
   if (orderAlertEl) {
     if (isFree) {
-      orderAlertEl.innerHTML = `<strong>FREE delivery within <span id="order-delivery-km">${km}</span>km.</strong> We'll confirm delivery time on WhatsApp.`;
+      orderAlertEl.innerHTML = `<strong>FREE delivery within <span id="order-delivery-km">${km}</span>km.</strong> We\'ll confirm delivery time on WhatsApp.`;
     } else {
-      orderAlertEl.innerHTML = `<strong>Paid delivery only.</strong> We'll confirm delivery charges and time on WhatsApp.`;
+      orderAlertEl.innerHTML = `<strong>Paid delivery only.</strong> We\'ll confirm delivery charges and time on WhatsApp.`;
     }
   }
 
@@ -1665,22 +1601,50 @@ function applySettings(settings) {
   if (orderHoursEl) orderHoursEl.textContent = hours;
   if (mapHoursEl)   mapHoursEl.textContent   = hours;
 
-  // ── Toggle amenity tiles ───────────────────────────
-  const amenityMap = {
-    'amenity-wheelchair': settings.amenity_wheelchair,
-    'amenity-parking':    settings.amenity_parking,
-    'amenity-delivery':   settings.amenity_delivery,
-    'amenity-takeaway':   settings.amenity_takeaway,
-    'amenity-coffee':     settings.amenity_coffee,
-    'amenity-restroom':   settings.amenity_restroom,
-    'amenity-payments':   settings.amenity_payments,
-    'amenity-lgbtq':      settings.amenity_lgbtq,
-    'amenity-quick-visit':settings.amenity_quick_visit,
-  };
-  Object.entries(amenityMap).forEach(([id, val]) => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = (val || 'YES').toString().trim().toUpperCase() === 'NO' ? 'none' : '';
-  });
+  // ── Toggle / Render dynamic amenity tiles ───────────
+  function getAmenityEmoji(text) {
+    const t = text.toLowerCase();
+    if (t.includes('wheelchair') || t.includes('disabled') || t.includes('access')) return '♿';
+    if (t.includes('parking') || t.includes('garage') || t.includes('car') || t.includes('lot')) return '🚗';
+    if (t.includes('delivery') || t.includes('courier') || t.includes('shipping')) return '🚚';
+    if (t.includes('takeaway') || t.includes('parcel') || t.includes('pickup') || t.includes('packet')) return '🛍️';
+    if (t.includes('coffee') || t.includes('tea') || t.includes('beverage') || t.includes('cafe') || t.includes('juice')) return '☕';
+    if (t.includes('restroom') || t.includes('toilet') || t.includes('washroom') || t.includes('bath')) return '🚻';
+    if (t.includes('payment') || t.includes('credit') || t.includes('debit') || t.includes('upi') || t.includes('card') || t.includes('nfc') || t.includes('cash')) return '💳';
+    if (t.includes('lgbt') || t.includes('pride') || t.includes('friendly')) return '🏳️‍🌈';
+    if (t.includes('quick') || t.includes('fast') || t.includes('speedy') || t.includes('visit')) return '⚡';
+    return '✨'; // default fallback emoji
+  }
+
+  const generalKeys = [
+    'google_rating', 'review_count', 'free_delivery_km', 'delivery_km',
+    'address', 'phone', 'phone_alt', 'opening_hours',
+    'hero_headline', 'hero_tagline', 'ordering_enabled', 'closed_message'
+  ];
+
+  const grid = document.getElementById('amenities-grid');
+  if (grid) {
+    grid.innerHTML = '';
+    Object.entries(settings).forEach(([key, val]) => {
+      // If it is not a general setting, treat it as a dynamic amenity
+      if (!generalKeys.includes(key)) {
+        const isEnabled = (val || 'YES').toString().trim().toUpperCase() !== 'NO';
+        if (isEnabled) {
+          const emoji = getAmenityEmoji(key);
+          const div = document.createElement('div');
+          div.style.background = '#fff';
+          div.style.borderRadius = '14px';
+          div.style.padding = '1rem 1.1rem';
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.gap = '0.7rem';
+          div.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
+          div.innerHTML = `${emoji} <span style="font-size:0.82rem;color:var(--brown);">${key}</span>`;
+          grid.appendChild(div);
+        }
+      }
+    });
+  }
 
   // ── Update hero headline & tagline ──────────────────
   const headlineEl = document.getElementById('hero-headline');

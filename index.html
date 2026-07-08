@@ -1457,7 +1457,13 @@ async function loadSiteSettings() {
         const settings = { ...DEFAULTS, ...data };
         
         // 3. If settings changed from cache, apply them and update cache
-        if (JSON.stringify(settings) !== JSON.stringify(cached)) {
+        const hasChanged = !cached ||
+          settings.google_rating !== cached.google_rating ||
+          settings.review_count !== cached.review_count ||
+          settings.free_delivery_km !== cached.free_delivery_km ||
+          settings.delivery_km !== cached.delivery_km;
+
+        if (hasChanged) {
           applySettings(settings);
           localStorage.setItem('rkb_settings', JSON.stringify(settings));
         }

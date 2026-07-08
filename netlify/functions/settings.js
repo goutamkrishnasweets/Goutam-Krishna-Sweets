@@ -15,6 +15,9 @@ exports.handler = async function (event, context) {
   const CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
   };
 
   // Hardcoded defaults — used if sheet is unreachable or J/K not filled

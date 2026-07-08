@@ -29,7 +29,10 @@ exports.handler = async function (event, context) {
       statusCode: 200,
       headers: {
         'Content-Type': 'text/csv; charset=utf-8',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       },
       body: data
     };

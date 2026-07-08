@@ -542,7 +542,7 @@ footer strong{color:#fff;}
       </div>
       <div class="fg"><label>Message on Cake</label><input type="text" id="oMsg" placeholder="e.g. Happy Birthday Priya! 🎉"></div>
       <div class="fg">
-        <label>Delivery Address <span style="color:var(--rose)">*</span> <span style="font-size:0.72rem;color:var(--gray);font-weight:400">(free delivery within 5km)</span></label>
+        <label>Delivery Address <span style="color:var(--rose)">*</span> <span style="font-size:0.72rem;color:var(--gray);font-weight:400">(free delivery within <span id="label-delivery-km">5</span>km)</span></label>
         <textarea id="oAddr" placeholder="Your full address with landmark, e.g. Near Mundur School, Palakkad Road, PIN 678592" rows="2" style="resize:vertical;"></textarea>
         <div class="field-error" id="oAddrErr">Please enter your delivery address.</div>
       </div>
@@ -1462,7 +1462,7 @@ async function loadSiteSettings() {
   if (deliveryEl) deliveryEl.textContent = km + ' km';
 
   // ── Update all "Xkm" delivery mentions across the page ──
-  ['delivery-strip-km', 'hero-badge-km', 'order-delivery-km'].forEach(id => {
+  ['delivery-strip-km', 'hero-badge-km', 'order-delivery-km', 'label-delivery-km'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = km;
   });

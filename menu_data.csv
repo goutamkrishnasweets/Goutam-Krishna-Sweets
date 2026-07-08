@@ -1,4 +1,4 @@
-name,alternate_name,type,category,tag,image_key,price,available,category_button_name
+name,alternate_name,type,category,tag,image_key,price,available,category_button_name,setting_key,setting_value
 Customized Cake,,cake,custom,Bestseller,customized,788,YES,Custom Cakes
 Barbie Cake,,cake,custom,Kids Fav,https://drive.google.com/file/d/1aJ33FGmM5dfvDM84OHJSSClqaVs4Kg27/view?usp=sharing,888,YES,
 Rainbow Cake,,cake,custom,Colorful,rainbow,999,YES,
@@ -57,4 +57,7 @@ Jalebi,Jilebi · Jilabi,sweet,fried,Crispy,jalebi,150,YES,Fried & Crispy
 Baby Jalebi,Cheru Jilebi · Mini Jilebi,sweet,fried,Mini,babyjalebi,150,YES,
 Sweet Boondi,Madhura Boondi,sweet,fried,,sweetboondi,150,YES,
 Savories,Kerala Mixture · Snacks,sweet,fried,,savories,150,YES,
-vada,Uzhunnu vada,sweet,fried,tea combo,https://drive.google.com/file/d/1WpntZraxw1VTLdAeoUXLdPPeiZXDPbMx/view?usp=sharing,12,YES,
+vada,Uzhunnu vada,sweet,fried,tea combo,https://drive.google.com/file/d/1WpntZraxw1VTLdAeoUXLdPPeiZXDPbMx/view?usp=sharing,12,YES,,
+,,,,,,,,,google_rating,4.3★
+,,,,,,,,,review_count,140+
+,,,,,,,,,delivery_km,5

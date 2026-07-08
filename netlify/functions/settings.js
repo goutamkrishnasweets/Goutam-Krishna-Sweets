@@ -1,12 +1,14 @@
 // ══════════════════════════════════════════════════════════════
 // Netlify Serverless Function: /api/settings
-// Fetches the owner's "settings" Google Sheet tab and returns
-// site config as JSON: google_rating, review_count, delivery_km
 //
-// Required Netlify Environment Variable:
-//   GOOGLE_SETTINGS_SHEET_CSV_URL — The published CSV URL of
-//   the "settings" sheet tab. Set it in:
-//   Netlify Dashboard → Site Settings → Environment Variables
+// Reads columns J (setting_key) and K (setting_value) from the
+// SAME Google Sheet used for the menu. No separate sheet or
+// env variable needed — reuses GOOGLE_SHEET_CSV_URL.
+//
+// Owner just fills in J and K in their existing menu sheet tab:
+//   J2: google_rating   K2: 4.3★
+//   J3: review_count    K3: 140+
+//   J4: delivery_km     K4: 5
 // ══════════════════════════════════════════════════════════════
 
 exports.handler = async function (event, context) {
@@ -15,22 +17,19 @@ exports.handler = async function (event, context) {
     'Content-Type': 'application/json; charset=utf-8',
   };
 
-  // Default fallback values (used if sheet is missing or blank)
+  // Hardcoded defaults — used if sheet is unreachable or J/K not filled
   const DEFAULTS = {
-    google_rating: '4.3★',
+    google_rating: '4.3\u2605',
     review_count: '140+',
     delivery_km: '5',
   };
 
-  const sheetUrl = process.env.GOOGLE_SETTINGS_SHEET_CSV_URL;
+  // Reuse the same env var as menu.js — no new variable needed!
+  const sheetUrl = process.env.GOOGLE_SHEET_CSV_URL;
 
   if (!sheetUrl) {
-    console.warn('⚠️ GOOGLE_SETTINGS_SHEET_CSV_URL not set — returning defaults.');
-    return {
-      statusCode: 200,
-      headers: CORS_HEADERS,
-      body: JSON.stringify(DEFAULTS),
-    };
+    console.warn('\u26a0\ufe0f GOOGLE_SHEET_CSV_URL not set \u2014 returning defaults.');
+    return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(DEFAULTS) };
   }
 
   try {
@@ -38,38 +37,41 @@ exports.handler = async function (event, context) {
     const response = await fetch(url, { headers: { 'cache-control': 'no-cache' } });
 
     if (!response.ok) {
-      console.error(`❌ Sheet fetch failed: ${response.statusText}`);
       return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(DEFAULTS) };
     }
 
     const csv = await response.text();
+    const lines = csv.trim().split('\n');
+    if (lines.length < 2) {
+      return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(DEFAULTS) };
+    }
 
-    // Parse CSV: two-column format — "key,value" (header row is "key,value")
+    // Find column indices for setting_key (J) and setting_value (K)
+    const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+    const jIdx = headers.indexOf('setting_key');
+    const kIdx = headers.indexOf('setting_value');
+
+    if (jIdx === -1 || kIdx === -1) {
+      console.warn('\u26a0\ufe0f setting_key/setting_value columns not found in sheet \u2014 using defaults.');
+      return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(DEFAULTS) };
+    }
+
     const settings = { ...DEFAULTS };
-    const lines = csv.trim().split('\n').slice(1); // skip header row
 
-    lines.forEach(line => {
-      // Handle quoted commas
-      const parts = line.match(/(".*?"|[^,]+)/g) || [];
-      if (parts.length >= 2) {
-        const key = parts[0].replace(/^"|"$/g, '').trim().toLowerCase().replace(/\s+/g, '_');
-        const val = parts[1].replace(/^"|"$/g, '').trim();
-        if (key && val) settings[key] = val;
+    lines.slice(1).forEach(line => {
+      // Simple split (settings values won't have commas)
+      const cols = line.split(',');
+      const key = (cols[jIdx] || '').trim().replace(/^"|"$/g, '');
+      const val = (cols[kIdx] || '').trim().replace(/^"|"$/g, '');
+      if (key && val) {
+        settings[key] = val;
+        console.info(`\u2705 Setting: ${key} = ${val}`);
       }
     });
 
-    console.info('✅ Settings loaded:', settings);
-    return {
-      statusCode: 200,
-      headers: CORS_HEADERS,
-      body: JSON.stringify(settings),
-    };
+    return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(settings) };
   } catch (err) {
-    console.error('❌ Settings function error:', err.toString());
-    return {
-      statusCode: 200, // always 200 — frontend uses fallback values
-      headers: CORS_HEADERS,
-      body: JSON.stringify(DEFAULTS),
-    };
+    console.error('\u274c Settings function error:', err.toString());
+    return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(DEFAULTS) };
   }
 };

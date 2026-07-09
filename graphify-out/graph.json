@@ -9,10 +9,41 @@
       "source_file": "D:\\web sites\\krishna_project\\netlify\\functions\\menu.js",
       "source_location": "L1",
       "id": "d_web_sites_krishna_project_netlify_functions_menu_js",
-      "community": 0,
+      "community": 1,
       "norm_label": "menu.js"
+    },
+    {
+      "label": "settings.js",
+      "file_type": "code",
+      "source_file": "D:\\web sites\\krishna_project\\netlify\\functions\\settings.js",
+      "source_location": "L1",
+      "id": "d_web_sites_krishna_project_netlify_functions_settings_js",
+      "community": 0,
+      "norm_label": "settings.js"
+    },
+    {
+      "label": "splitCsvLine()",
+      "file_type": "code",
+      "source_file": "D:\\web sites\\krishna_project\\netlify\\functions\\settings.js",
+      "source_location": "L64",
+      "id": "settings_splitcsvline",
+      "community": 0,
+      "norm_label": "splitcsvline()"
     }
   ],
-  "links": [],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\web sites\\krishna_project\\netlify\\functions\\settings.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_src": "d_web_sites_krishna_project_netlify_functions_settings_js",
+      "_tgt": "settings_splitcsvline",
+      "source": "d_web_sites_krishna_project_netlify_functions_settings_js",
+      "target": "settings_splitcsvline",
+      "confidence_score": 1.0
+    }
+  ],
   "hyperedges": []
 }

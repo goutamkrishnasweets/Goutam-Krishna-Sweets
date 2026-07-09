@@ -1,16 +1,17 @@
-# Graph Report - D:\web sites\krishna_project  (2026-06-26)
+# Graph Report - D:\web sites\krishna_project  (2026-07-09)
 
 ## Corpus Check
-- 1 files · ~1,354,129 words
+- 2 files · ~1,383,508 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1 nodes · 0 edges · 1 communities detected
-- Extraction: 0% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 3 nodes · 1 edges · 2 communities detected
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
 
 ## God Nodes (most connected - your core abstractions)
 
@@ -23,8 +24,14 @@
 Cohesion: 1.0
 Nodes (0): 
 
+### Community 1 - "Community 1"
+Cohesion: 1.0
+Nodes (0): 
+
 ## Knowledge Gaps
-- **Thin community `Community 0`** (1 nodes): `menu.js`
+- **Thin community `Community 0`** (2 nodes): `settings.js`, `splitCsvLine()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 1`** (1 nodes): `menu.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
